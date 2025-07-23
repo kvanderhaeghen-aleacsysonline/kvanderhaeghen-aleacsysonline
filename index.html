@@ -7,7 +7,7 @@
     <title>Kristof Van Der Haeghen</title>
     <style>
         .container {
-          height: 200px;
+          height: 300px;
           position: relative;
           border: 3px solid green;
         }
@@ -19,13 +19,21 @@
           left: 50%;
           -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+          align-items: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="center">
-            <button onclick="location.href='https://kvanderhaeghen-aleacsysonline.github.io/markdown-site'" type="button">Markdown Test Page</button>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                <button style="margin: 0.5em;" onclick="location.href='https://kvanderhaeghen-aleacsysonline.github.io/markdown-site'" type="button">Markdown Test Page</button>
+                <button style="margin: 0.5em;" onclick="location.href='https://kvanderhaeghen-aleacsysonline.github.io/kvanderhaeghen-aleacsysonline/babylonjs'" type="button">BabylonJS</button>
+                <button style="margin: 0.5em;" onclick="location.href='https://kvanderhaeghen-aleacsysonline.github.io/kvanderhaeghen-aleacsysonline/cocos'" type="button">Cocos</button>
+                <button style="margin: 0.5em;" onclick="location.href='https://kvanderhaeghen-aleacsysonline.github.io/kvanderhaeghen-aleacsysonline/defold'" type="button">Defold</button>
+                <button style="margin: 0.5em;" onclick="location.href='https://kvanderhaeghen-aleacsysonline.github.io/kvanderhaeghen-aleacsysonline/godot'" type="button">Godot</button>
+                <button style="margin: 0.5em;" onclick="location.href='https://kvanderhaeghen-aleacsysonline.github.io/kvanderhaeghen-aleacsysonline/hackathon24'" type="button">Hackathon24</button>
+            </div>
         </div>
     </div>
 </body>
