@@ -1,0 +1,26 @@
+System.register("chunks:///_virtual/main",["./playGame.ts","./playerController.ts","./resize.ts"],(function(){return{setters:[null,null,null],execute:function(){}}}));
+
+System.register("chunks:///_virtual/playerController.ts",["./rollupPluginModLoBabelHelpers.js","cc"],(function(e){var i,t,o,n,r,c,s,l,a,d,h,p,y,u;return{setters:[function(e){i=e.applyDecoratedDescriptor,t=e.inheritsLoose,o=e.initializerDefineProperty,n=e.assertThisInitialized},function(e){r=e.cclegacy,c=e._decorator,s=e.RigidBody2D,l=e.BoxCollider2D,a=e.input,d=e.Input,h=e.Contact2DType,p=e.KeyCode,y=e.Vec2,u=e.Component}],execute:function(){var g,R,C,f,b,m,B;r._RF.push({},"07c91CrcGRP3IgPZtbZnbhQ","playerController",void 0);var T=c.ccclass,v=c.property;e("playerController",(g=T("playerController"),R=v(s),C=v(l),g((m=i((b=function(e){function i(){for(var i,t=arguments.length,r=new Array(t),c=0;c<t;c++)r[c]=arguments[c];return i=e.call.apply(e,[this].concat(r))||this,o(i,"RigidBody",m,n(i)),o(i,"collider",B,n(i)),i.direction=0,i.maxVelocityX=100,i.walkForce=150,i.jumpForce=6e3,i.isGrounded=!1,i}t(i,e);var r=i.prototype;return r.onLoad=function(){a.on(d.EventType.KEY_DOWN,this.onKeyDown,this),a.on(d.EventType.KEY_UP,this.onKeyUp,this),this.collider.on(h.BEGIN_CONTACT,this.onBeginContact,this)},r.onBeginContact=function(e,i){2===e.tag&&(this.isGrounded=!0)},r.onKeyDown=function(e){switch(e.keyCode){case p.ARROW_LEFT:this.direction=-1,this.node.setScale(-1*Math.abs(this.node.getScale().x),this.node.getScale().y);break;case p.ARROW_RIGHT:this.direction=1,this.node.setScale(Math.abs(this.node.getScale().x),this.node.getScale().y);break;case p.SPACE:this.isGrounded&&(this.jump(),this.isGrounded=!1)}},r.onKeyUp=function(e){switch(e.keyCode){case p.ARROW_LEFT:case p.ARROW_RIGHT:this.direction=0}},r.jump=function(){this.RigidBody.applyForceToCenter(new y(0,this.jumpForce),!0)},r.move=function(){this.RigidBody.applyForceToCenter(new y(this.direction*this.walkForce,0),!0)},r.update=function(e){(this.direction>0&&this.RigidBody.linearVelocity.x<this.maxVelocityX||this.direction<0&&this.RigidBody.linearVelocity.x>-this.maxVelocityX)&&this.move()},i}(u)).prototype,"RigidBody",[R],{configurable:!0,enumerable:!0,writable:!0,initializer:null}),B=i(b.prototype,"collider",[C],{configurable:!0,enumerable:!0,writable:!0,initializer:null}),f=b))||f));r._RF.pop()}}}));
+
+System.register("chunks:///_virtual/playGame.ts",["./rollupPluginModLoBabelHelpers.js","cc"],(function(e){var t,n,r,i,o,a,l,u,c,s,p,b;return{setters:[function(e){t=e.applyDecoratedDescriptor,n=e.inheritsLoose,r=e.initializerDefineProperty,i=e.assertThisInitialized},function(e){o=e.cclegacy,a=e._decorator,l=e.Button,u=e.Prefab,c=e.CCInteger,s=e.Node,p=e.instantiate,b=e.Component}],execute:function(){var f,y,P,d,h,m,g,w,v,z,X;o._RF.push({},"757bcugd4NIxrWArkbJ2eky","playGame",void 0);var _=a.ccclass,C=a.property;e("playGame",(f=_("playGame"),y=C(l),P=C(u),d=C([c]),h=C(c),f((w=t((g=function(e){function t(){for(var t,n=arguments.length,o=new Array(n),a=0;a<n;a++)o[a]=arguments[a];return t=e.call.apply(e,[this].concat(o))||this,r(t,"button",w,i(t)),r(t,"tilePrefab",v,i(t)),r(t,"betweenPosX",z,i(t)),r(t,"yPos",X,i(t)),t}return n(t,e),t.prototype.onLoad=function(){var e=this;this.button.node.on(s.EventType.MOUSE_DOWN,(function(){var t=p(e.tilePrefab),n=e.betweenPosX[0]+Math.random()*(e.betweenPosX[1]-e.betweenPosX[0]);t.setPosition(n,e.yPos),e.node.addChild(t)}))},t}(b)).prototype,"button",[y],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return null}}),v=t(g.prototype,"tilePrefab",[P],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return null}}),z=t(g.prototype,"betweenPosX",[d],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return[]}}),X=t(g.prototype,"yPos",[h],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return 0}}),m=g))||m));o._RF.pop()}}}));
+
+System.register("chunks:///_virtual/resize.ts",["./rollupPluginModLoBabelHelpers.js","cc"],(function(e){var i,n,o,t,s,r;return{setters:[function(e){i=e.inheritsLoose},function(e){n=e.cclegacy,o=e._decorator,t=e.view,s=e.ResolutionPolicy,r=e.Component}],execute:function(){var c;n._RF.push({},"38ed9aV06FJ0LiS1Cpryc+4","resize",void 0);var u=o.ccclass;o.property,e("resize",u("resize")(c=function(e){function n(){return e.apply(this,arguments)||this}i(n,e);var o=n.prototype;return o.onLoad=function(){t.on("window-resize",this.onResize,this),this.onResize()},o.onDestroy=function(){t.off("window-resize",this.onResize,this)},o.onResize=function(){var e=window,i=e.innerWidth,n=e.innerHeight;t.setFrameSize(i,n),t.setDesignResolutionSize(i,n,s.FIXED_HEIGHT)},n}(r))||c);n._RF.pop()}}}));
+
+(function(r) {
+  r('virtual:///prerequisite-imports/main', 'chunks:///_virtual/main'); 
+})(function(mid, cid) {
+    System.register(mid, [cid], function (_export, _context) {
+    return {
+        setters: [function(_m) {
+            var _exportObj = {};
+
+            for (var _key in _m) {
+              if (_key !== "default" && _key !== "__esModule") _exportObj[_key] = _m[_key];
+            }
+      
+            _export(_exportObj);
+        }],
+        execute: function () { }
+    };
+    });
+});
