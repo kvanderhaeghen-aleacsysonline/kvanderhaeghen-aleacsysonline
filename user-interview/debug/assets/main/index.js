@@ -225,8 +225,8 @@ System.register("chunks:///_virtual/bonusBuyComponent.ts", ['./rollupPluginModLo
   };
 });
 
-System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './bonusTypes.ts', './jackpotTypes.ts', './gameClasses.ts', './coinComponent.ts', './eventSignals.ts', './bonusSideType.ts', './moveCoins.ts', './resolvablePromise.ts', './coinData.ts', './roundTypes.ts', './gameplayModel.ts', './gameData.ts', './wait.ts'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, Enum, Label, Prefab, instantiate, tween, Vec3, Component, BonusItemTypes, BonusModifierTypes, respinnableModifierTypes, respinnableJackpotTypes, jackpotTypeToTriggerType, GodCoins, CoinComponent, moveCoinCompleteSignal, bonusActivateItemSignal, BonusSideType, bonusSideTypeToGodFeatureType, moveFeatureCoins, moveJackpotCoins, ResolvablePromise, CoinTypes, RoundTypes, GameplayModel, gameData, wait;
+System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './bonusTypes.ts', './jackpotTypes.ts', './coinComponent.ts', './eventSignals.ts', './bonusSideType.ts', './moveCoins.ts', './resolvablePromise.ts', './coinData.ts', './roundTypes.ts', './gameplayModel.ts', './gameData.ts', './wait.ts'], function (exports) {
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, Enum, Label, Prefab, instantiate, tween, Vec3, Component, BonusItemTypes, BonusModifierTypes, respinnableModifierTypes, respinnableJackpotTypes, jackpotTypeToTriggerType, CoinComponent, moveCoinCompleteSignal, bonusActivateItemSignal, BonusSideType, bonusSideTypeToGodFeatureType, moveFeatureCoins, moveJackpotCoins, ResolvablePromise, CoinTypes, RoundTypes, GameplayModel, gameData, wait;
   return {
     setters: [function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
@@ -252,8 +252,6 @@ System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBab
     }, function (module) {
       jackpotTypeToTriggerType = module.jackpotTypeToTriggerType;
     }, function (module) {
-      GodCoins = module.GodCoins;
-    }, function (module) {
       CoinComponent = module.CoinComponent;
     }, function (module) {
       moveCoinCompleteSignal = module.moveCoinCompleteSignal;
@@ -278,7 +276,7 @@ System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBab
       wait = module.wait;
     }],
     execute: function () {
-      var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5;
+      var _dec, _dec2, _dec3, _dec4, _dec5, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4;
       cclegacy._RF.push({}, "fe478HbBWxHc6X8xFFVtLeh", "bonusItemModel", undefined);
       var ccclass = _decorator.ccclass,
         property = _decorator.property;
@@ -289,12 +287,7 @@ System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBab
         visible: function visible() {
           return this.itemType === BonusItemTypes.Modifier;
         }
-      }), _dec4 = property({
-        type: [GodCoins],
-        visible: function visible() {
-          return this.modifierType === BonusModifierTypes.MainMultiplier;
-        }
-      }), _dec5 = property(Label), _dec6 = property(Prefab), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
+      }), _dec4 = property(Label), _dec5 = property(Prefab), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
         _inheritsLoose(BonusItemModel, _Component);
         function BonusItemModel() {
           var _this$multiplyValue, _this$initFromType, _this$moveCoinHandler;
@@ -306,9 +299,8 @@ System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBab
           _this.gameplayModel = null;
           _initializerDefineProperty(_this, "itemType", _descriptor, _assertThisInitialized(_this));
           _initializerDefineProperty(_this, "modifierType", _descriptor2, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "godCoins", _descriptor3, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "valueLabel", _descriptor4, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "mysteryPrefab", _descriptor5, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "valueLabel", _descriptor3, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "mysteryPrefab", _descriptor4, _assertThisInitialized(_this));
           _this.sideType = BonusSideType.Center;
           _this.mysteryNode = null;
           _this.multiplyValue = (_this$multiplyValue = {}, _this$multiplyValue[BonusItemTypes.Cash] = function (multiplier) {
@@ -342,7 +334,7 @@ System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBab
                 console.warn("God feature type is undefined, because of side type " + _this.sideType);
                 return;
               }
-              var godCoin = _this.godCoins.find(function (godCoin) {
+              var godCoin = _this.gameplayModel.godCoins.find(function (godCoin) {
                 return godCoin.type === godFeatureType;
               });
               var instance = instantiate(godCoin.prefab);
@@ -368,9 +360,9 @@ System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBab
           _this.moveCoinCompleteBind = _this.moveCoinCompleteHandler.bind(_assertThisInitialized(_this));
           _this.activatePromiseResolve = new ResolvablePromise();
           _this.moveCoinHandler = (_this$moveCoinHandler = {}, _this$moveCoinHandler[BonusModifierTypes.MainMultiplier] = function (playfieldModel, roundType) {
-            moveFeatureCoins(playfieldModel.featureCoinDropPositions, roundType);
+            moveFeatureCoins(playfieldModel.featureCoinDropPositions, roundType, _this.coinComponent ? [_this.coinComponent.featureType] : undefined);
           }, _this$moveCoinHandler[BonusItemTypes.Jackpot] = function (playfieldModel, roundType) {
-            moveJackpotCoins(playfieldModel.jackpotCoinDropPositions, roundType);
+            moveJackpotCoins(playfieldModel.jackpotCoinDropPositions, roundType, _this.coinComponent ? [_this.coinComponent.jackpotType] : undefined);
           }, _this$moveCoinHandler);
           return _this;
         }
@@ -443,14 +435,16 @@ System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBab
           resolvePromise.promise.then(function () {
             var isRespinnable = respinnableModifierTypes.includes(_this3.modifierType) || respinnableJackpotTypes.includes(_this3.jackpotType);
             _this3.activatePromiseResolve.promise.then(function () {
-              bonusActivateItemSignal.dispatch({
-                item: _this3,
-                amount: _this3.modifierType === BonusModifierTypes.MainMultiplier ? gameData.bonus.mainMultipliers.increaseCount : _this3.getLabelValue(_this3.itemType === BonusItemTypes.Cash)
-              });
+              if (!respinnableJackpotTypes.includes(_this3.jackpotType)) {
+                bonusActivateItemSignal.dispatch({
+                  item: _this3,
+                  amount: _this3.modifierType === BonusModifierTypes.MainMultiplier ? gameData.bonus.mainMultipliers.increaseCount : _this3.getLabelValue(_this3.itemType === BonusItemTypes.Cash)
+                });
+              }
             });
             if (isRespinnable && playfieldModel) {
               var _this3$modifierType;
-              _this3.moveCoinHandler[(_this3$modifierType = _this3.modifierType) != null ? _this3$modifierType : _this3.jackpotType](playfieldModel, roundType);
+              _this3.moveCoinHandler[(_this3$modifierType = _this3.modifierType) != null ? _this3$modifierType : _this3.itemType](playfieldModel, roundType);
             } else {
               _this3.activatePromiseResolve.resolve();
             }
@@ -534,21 +528,14 @@ System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBab
         initializer: function initializer() {
           return undefined;
         }
-      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "godCoins", [_dec4], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function initializer() {
-          return [];
-        }
-      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "valueLabel", [_dec5], {
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "valueLabel", [_dec4], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return undefined;
         }
-      }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "mysteryPrefab", [_dec6], {
+      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "mysteryPrefab", [_dec5], {
         configurable: true,
         enumerable: true,
         writable: true,
@@ -1342,7 +1329,7 @@ System.register("chunks:///_virtual/bonusRollComponent.ts", ['./rollupPluginModL
           if (args.sideType !== this.bonusSide) {
             return;
           }
-          if (((_this$gameplayModel = this.gameplayModel) == null ? void 0 : _this$gameplayModel.roundType) !== RoundTypes.Bonus || this.cannotRedrawItem) {
+          if (((_this$gameplayModel = this.gameplayModel) == null ? void 0 : _this$gameplayModel.roundType) !== RoundTypes.Bonus || !this.canRedrawItem) {
             return;
           }
           this.reset();
@@ -1474,7 +1461,8 @@ System.register("chunks:///_virtual/bonusRollComponent.ts", ['./rollupPluginModL
           if (!this.activeItem || this.activeItem.itemType === BonusItemTypes.None) {
             return;
           }
-          if (this.activeItem.itemType === BonusItemTypes.Modifier && this.activeItem.modifierType === BonusModifierTypes.MainMultiplier) {
+          var isRespinnable = respinnableModifierTypes.includes(this.activeItem.modifierType) || respinnableJackpotTypes.includes(this.activeItem.jackpotType);
+          if (isRespinnable) {
             this.activeItem.activate(this.gameplayModel.roundType, this.playfieldModel);
             return;
           }
@@ -1482,10 +1470,10 @@ System.register("chunks:///_virtual/bonusRollComponent.ts", ['./rollupPluginModL
           this.activeItem.activate(this.gameplayModel.roundType);
         };
         _createClass(BonusRollComponent, [{
-          key: "cannotRedrawItem",
+          key: "canRedrawItem",
           get: function get() {
             var _this$activeItem2, _this$activeItem3, _this$activeItem4;
-            return !respinnableModifierTypes.includes((_this$activeItem2 = this.activeItem) == null ? void 0 : _this$activeItem2.modifierType) && !respinnableJackpotTypes.includes((_this$activeItem3 = this.activeItem) == null ? void 0 : _this$activeItem3.jackpotType) && ![BonusItemTypes.None, undefined].includes((_this$activeItem4 = this.activeItem) == null ? void 0 : _this$activeItem4.itemType);
+            return respinnableModifierTypes.includes((_this$activeItem2 = this.activeItem) == null ? void 0 : _this$activeItem2.modifierType) || respinnableJackpotTypes.includes((_this$activeItem3 = this.activeItem) == null ? void 0 : _this$activeItem3.jackpotType) || [BonusItemTypes.None, undefined].includes((_this$activeItem4 = this.activeItem) == null ? void 0 : _this$activeItem4.itemType);
           }
         }]);
         return BonusRollComponent;
@@ -3466,7 +3454,7 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
 });
 
 System.register("chunks:///_virtual/gameplayModel.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './eventSignals.ts', './playfieldUpdate.ts', './godFeatureTypes.ts', './gameData.ts', './hudComponent.ts', './hudModel.ts', './roundTypes.ts', './gameClasses.ts', './specialSymbols.ts', './godFeatureModel.ts', './godFeatureComponent.ts', './jackpotComponent.ts'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, _asyncToGenerator, _regeneratorRuntime, cclegacy, _decorator, CCBoolean, CCFloat, Label, randomRangeInt, Component, setRoundTypeSignal, freeSpinsActivateSignal, godFeatureResetSignal, changeReelSpinDirectionSignal, godFeatureSignal, bonusResetRollsSignal, playfieldUpdate, GodFeatureTypes, gameData, HudComponent, HudModel, RoundTypes, JackpotCoins, RoundPlayfield, SpecialSymbolTypes, specialSymbolTypeToGodType, GodFeatureModel, GodFeatureComponent, JackpotComponent;
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, _asyncToGenerator, _regeneratorRuntime, cclegacy, _decorator, CCBoolean, CCFloat, Label, randomRangeInt, Component, setRoundTypeSignal, freeSpinsActivateSignal, godFeatureResetSignal, changeReelSpinDirectionSignal, godFeatureSignal, bonusResetRollsSignal, playfieldUpdate, GodFeatureTypes, gameData, HudComponent, HudModel, RoundTypes, JackpotCoins, GodCoins, RoundPlayfield, SpecialSymbolTypes, specialSymbolTypeToGodType, GodFeatureModel, GodFeatureComponent, JackpotComponent;
   return {
     setters: [function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
@@ -3505,6 +3493,7 @@ System.register("chunks:///_virtual/gameplayModel.ts", ['./rollupPluginModLoBabe
       RoundTypes = module.RoundTypes;
     }, function (module) {
       JackpotCoins = module.JackpotCoins;
+      GodCoins = module.GodCoins;
       RoundPlayfield = module.RoundPlayfield;
     }, function (module) {
       SpecialSymbolTypes = module.SpecialSymbolTypes;
@@ -3517,13 +3506,15 @@ System.register("chunks:///_virtual/gameplayModel.ts", ['./rollupPluginModLoBabe
       JackpotComponent = module.JackpotComponent;
     }],
     execute: function () {
-      var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11;
+      var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _descriptor12;
       cclegacy._RF.push({}, "3a7c15rI05KTZ1Npv1COlVJ", "gameplayModel", undefined);
       var ccclass = _decorator.ccclass,
         property = _decorator.property;
       var GameplayModel = exports('GameplayModel', (_dec = ccclass('GameplayModel'), _dec2 = property(GodFeatureComponent), _dec3 = property(JackpotComponent), _dec4 = property({
         type: [JackpotCoins]
-      }), _dec5 = property([RoundPlayfield]), _dec6 = property(CCBoolean), _dec7 = property(CCBoolean), _dec8 = property([CCFloat]), _dec9 = property(CCFloat), _dec10 = property(CCFloat), _dec11 = property(Label), _dec12 = property(Label), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
+      }), _dec5 = property({
+        type: [GodCoins]
+      }), _dec6 = property([RoundPlayfield]), _dec7 = property(CCBoolean), _dec8 = property(CCBoolean), _dec9 = property([CCFloat]), _dec10 = property(CCFloat), _dec11 = property(CCFloat), _dec12 = property(Label), _dec13 = property(Label), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
         _inheritsLoose(GameplayModel, _Component);
         function GameplayModel() {
           var _this$activatedSpecia, _this$normalizedBonus, _this$setFieldsActive;
@@ -3537,14 +3528,15 @@ System.register("chunks:///_virtual/gameplayModel.ts", ['./rollupPluginModLoBabe
           _initializerDefineProperty(_this, "godFeatureComponent", _descriptor, _assertThisInitialized(_this));
           _initializerDefineProperty(_this, "jackpotComponents", _descriptor2, _assertThisInitialized(_this));
           _initializerDefineProperty(_this, "jackpotCoins", _descriptor3, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "playfields", _descriptor4, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "canStartRound", _descriptor5, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "reverse", _descriptor6, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "stakes", _descriptor7, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "startBalance", _descriptor8, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "startStake", _descriptor9, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "freeSpinCountLabel", _descriptor10, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "freeSpinTotalLabel", _descriptor11, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "godCoins", _descriptor4, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "playfields", _descriptor5, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "canStartRound", _descriptor6, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "reverse", _descriptor7, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "stakes", _descriptor8, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "startBalance", _descriptor9, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "startStake", _descriptor10, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "freeSpinCountLabel", _descriptor11, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "freeSpinTotalLabel", _descriptor12, _assertThisInitialized(_this));
           _this.respinEnabled = false;
           _this.respinResolvePromise = [];
           _this.godFeatureModels = [];
@@ -3791,56 +3783,63 @@ System.register("chunks:///_virtual/gameplayModel.ts", ['./rollupPluginModLoBabe
         initializer: function initializer() {
           return [];
         }
-      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "playfields", [_dec5], {
+      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "godCoins", [_dec5], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return [];
         }
-      }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "canStartRound", [_dec6], {
+      }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "playfields", [_dec6], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function initializer() {
+          return [];
+        }
+      }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "canStartRound", [_dec7], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return true;
         }
-      }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "reverse", [_dec7], {
+      }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "reverse", [_dec8], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return false;
         }
-      }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "stakes", [_dec8], {
+      }), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, "stakes", [_dec9], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return [];
         }
-      }), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, "startBalance", [_dec9], {
+      }), _descriptor9 = _applyDecoratedDescriptor(_class2.prototype, "startBalance", [_dec10], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return 10000;
         }
-      }), _descriptor9 = _applyDecoratedDescriptor(_class2.prototype, "startStake", [_dec10], {
+      }), _descriptor10 = _applyDecoratedDescriptor(_class2.prototype, "startStake", [_dec11], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return 100;
         }
-      }), _descriptor10 = _applyDecoratedDescriptor(_class2.prototype, "freeSpinCountLabel", [_dec11], {
+      }), _descriptor11 = _applyDecoratedDescriptor(_class2.prototype, "freeSpinCountLabel", [_dec12], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return null;
         }
-      }), _descriptor11 = _applyDecoratedDescriptor(_class2.prototype, "freeSpinTotalLabel", [_dec12], {
+      }), _descriptor12 = _applyDecoratedDescriptor(_class2.prototype, "freeSpinTotalLabel", [_dec13], {
         configurable: true,
         enumerable: true,
         writable: true,
@@ -5587,16 +5586,16 @@ System.register("chunks:///_virtual/moveCoins.ts", ['./rollupPluginModLoBabelHel
         moveJackpotCoins: moveJackpotCoins
       });
       cclegacy._RF.push({}, "c6c5fKEvdRH151TYFq5711c", "moveCoins", undefined);
-      function moveFeatureCoins(_x, _x2) {
+      function moveFeatureCoins(_x, _x2, _x3) {
         return _moveFeatureCoins.apply(this, arguments);
       }
       function _moveFeatureCoins() {
-        _moveFeatureCoins = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dropPositions, roundType) {
+        _moveFeatureCoins = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dropPositions, roundType, specificFeatureGods) {
           var featureGods, i;
           return _regeneratorRuntime().wrap(function _callee$(_context) {
             while (1) switch (_context.prev = _context.next) {
               case 0:
-                featureGods = Object.keys(dropPositions).map(function (key) {
+                featureGods = specificFeatureGods != null ? specificFeatureGods : Object.keys(dropPositions).map(function (key) {
                   return key;
                 });
                 i = 0;
@@ -5627,16 +5626,16 @@ System.register("chunks:///_virtual/moveCoins.ts", ['./rollupPluginModLoBabelHel
         }));
         return _moveFeatureCoins.apply(this, arguments);
       }
-      function moveJackpotCoins(_x3, _x4) {
+      function moveJackpotCoins(_x4, _x5, _x6) {
         return _moveJackpotCoins.apply(this, arguments);
       }
       function _moveJackpotCoins() {
-        _moveJackpotCoins = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(dropPositions, roundType) {
+        _moveJackpotCoins = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(dropPositions, roundType, specificJackpots) {
           var jackpots, i;
           return _regeneratorRuntime().wrap(function _callee2$(_context2) {
             while (1) switch (_context2.prev = _context2.next) {
               case 0:
-                jackpots = Object.keys(dropPositions).map(function (key) {
+                jackpots = specificJackpots != null ? specificJackpots : Object.keys(dropPositions).map(function (key) {
                   return key;
                 });
                 i = 0;
@@ -8099,8 +8098,8 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
                               case 0:
                                 spinsLeft = models.bonus.getBonusSpinsLeftOfSide(spin.sideType);
                                 isGridFull = models.bonus.getBonusSpinsSideIsFull(spin.sideType);
-                                console.error('playBonusRound - Spins Left:', spinsLeft);
-                                console.error('playBonusRound - Grid Full:', isGridFull);
+                                console.log('playBonusRound - Spins Left:', spinsLeft);
+                                console.log('playBonusRound - Grid Full:', isGridFull);
                                 if (!(spinsLeft > 0 && isGridFull || spin.sideType === BonusSideType.Center)) {
                                   _context12.next = 15;
                                   break;
