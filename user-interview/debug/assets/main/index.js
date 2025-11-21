@@ -628,7 +628,7 @@ System.register("chunks:///_virtual/bonusModel.ts", ['./rollupPluginModLoBabelHe
           _this.bonusSpinsPerSide = (_this$bonusSpinsPerSi = {}, _this$bonusSpinsPerSi[BonusSideType.Left] = undefined, _this$bonusSpinsPerSi[BonusSideType.Center] = undefined, _this$bonusSpinsPerSi[BonusSideType.Right] = undefined, _this$bonusSpinsPerSi);
           _this.onBonusActivateItemBind = _this.onBonusActivateItemHandler.bind(_assertThisInitialized(_this));
           _this.drawItemRollWeights = (_this$drawItemRollWei = {}, _this$drawItemRollWei[BonusItemTypes.None] = 120, _this$drawItemRollWei[BonusItemTypes.Cash] = 30, _this$drawItemRollWei[BonusItemTypes.Jackpot] = 20, _this$drawItemRollWei[BonusItemTypes.Modifier] = 20, _this$drawItemRollWei);
-          _this.drawItemResultWeights = (_this$drawItemResultW = {}, _this$drawItemResultW[BonusItemTypes.None] = 300, _this$drawItemResultW[BonusItemTypes.Cash] = 50, _this$drawItemResultW[BonusItemTypes.Jackpot] = 20, _this$drawItemResultW[BonusItemTypes.Modifier] = 15, _this$drawItemResultW);
+          _this.drawItemResultWeights = (_this$drawItemResultW = {}, _this$drawItemResultW[BonusItemTypes.None] = 350, _this$drawItemResultW[BonusItemTypes.Cash] = 50, _this$drawItemResultW[BonusItemTypes.Jackpot] = 20, _this$drawItemResultW[BonusItemTypes.Modifier] = 15, _this$drawItemResultW);
           _this.cheatModifierResultWeights = (_this$cheatModifierRe = {}, _this$cheatModifierRe[BonusItemTypes.None] = 300, _this$cheatModifierRe[BonusItemTypes.Cash] = 100, _this$cheatModifierRe[BonusItemTypes.Jackpot] = 1, _this$cheatModifierRe[BonusItemTypes.Modifier] = 100, _this$cheatModifierRe);
           _this.cheatJackpotResultWeights = (_this$cheatJackpotRes = {}, _this$cheatJackpotRes[BonusItemTypes.None] = 300, _this$cheatJackpotRes[BonusItemTypes.Cash] = 100, _this$cheatJackpotRes[BonusItemTypes.Jackpot] = 100, _this$cheatJackpotRes[BonusItemTypes.Modifier] = 1, _this$cheatJackpotRes);
           _this.drawModifierWeights = (_this$drawModifierWei = {}, _this$drawModifierWei[BonusModifierTypes.CoinCollector] = 10, _this$drawModifierWei[BonusModifierTypes.MainMultiplier] = 0, _this$drawModifierWei[BonusModifierTypes.StickyMultiplier] = 20, _this$drawModifierWei[BonusModifierTypes.RepeatCollector] = 0, _this$drawModifierWei);
@@ -1380,11 +1380,11 @@ System.register("chunks:///_virtual/bonusRollComponent.ts", ['./rollupPluginModL
           });
         };
         _proto.bonusStartRollHandler = function bonusStartRollHandler(args) {
-          var _this$gameplayModel, _this$activeItem;
+          var _this$gameplayModel;
           if (args.sideType !== this.bonusSide) {
             return;
           }
-          if (((_this$gameplayModel = this.gameplayModel) == null ? void 0 : _this$gameplayModel.roundType) !== RoundTypes.Bonus || !((_this$activeItem = this.activeItem) != null && _this$activeItem.canRedrawItem)) {
+          if (((_this$gameplayModel = this.gameplayModel) == null ? void 0 : _this$gameplayModel.roundType) !== RoundTypes.Bonus || this.activeItem && !this.activeItem.canRedrawItem) {
             return;
           }
           this.reset();
@@ -1498,8 +1498,8 @@ System.register("chunks:///_virtual/bonusRollComponent.ts", ['./rollupPluginModL
           }
         };
         _proto.update = function update(deltaT) {
-          var _this$activeItem2;
-          var item = (_this$activeItem2 = this.activeItem) == null ? void 0 : _this$activeItem2.node;
+          var _this$activeItem;
+          var item = (_this$activeItem = this.activeItem) == null ? void 0 : _this$activeItem.node;
           if (!item || this.status !== ReelStatus.Rolling && this.status !== ReelStatus.Stopping) {
             return;
           }
@@ -1807,7 +1807,7 @@ System.register("chunks:///_virtual/coinComponent.ts", ['./rollupPluginModLoBabe
           },
           set: function set(value) {
             if (!this.valueLabel) {
-              console.warn('Value label is undefined');
+              // console.warn('Value label is undefined');
               return;
             }
             this.valueLabel.string = '€' + value.toFixed(2);
@@ -2825,10 +2825,6 @@ System.register("chunks:///_virtual/gameData.ts", ['cc', './godFeatureTypes.ts',
       var _maxSpecialSymbolCoun, _transforms;
       cclegacy._RF.push({}, "27a31UMRTRDlZbohVoiUp35", "gameData", undefined);
       var gameData = exports('gameData', {
-        specialSymbolValues: {
-          wild: 10,
-          multiplier: 11
-        },
         respin: {
           possibleCount: 3,
           removeCount: {
@@ -2852,7 +2848,7 @@ System.register("chunks:///_virtual/gameData.ts", ['cc', './godFeatureTypes.ts',
           }
         },
         freeSpins: {
-          maxSpecialSymbolCount: (_maxSpecialSymbolCoun = {}, _maxSpecialSymbolCoun[SpecialSymbolTypes.Wild] = 6, _maxSpecialSymbolCoun[SpecialSymbolTypes.Multiplier] = 6, _maxSpecialSymbolCoun)
+          maxSpecialSymbolCount: (_maxSpecialSymbolCoun = {}, _maxSpecialSymbolCoun[SpecialSymbolTypes.Wild] = 6, _maxSpecialSymbolCoun[SpecialSymbolTypes.Multiplier] = 3, _maxSpecialSymbolCoun)
         },
         winlines: {
           minimumCount: 8
@@ -3081,7 +3077,7 @@ System.register("chunks:///_virtual/gameInput.ts", ['./rollupPluginModLoBabelHel
 });
 
 System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData.ts', './gameData.ts', './godFeatureTypes.ts', './reelsData.ts', './randomizer.ts', './specialSymbols.ts', './array.ts'], function (exports) {
-  var cclegacy, CoinTypes, gameData, GodFeatureTypes, godFeatureTypeToId, idToGodFeatureType, reelsData, bonusReelsData, betterRandom, SpecialSymbolTypes, godTypeToSpecialSymbolType, shuffle, flatMap;
+  var cclegacy, CoinTypes, gameData, GodFeatureTypes, godFeatureTypeToId, idToGodFeatureType, reelsData, bonusReelsData, betterRandom, SpecialSymbolTypes, specialSymbolIdToType, specialSymbolTypeToId, godTypeToSpecialSymbolType, shuffle, flatMap;
   return {
     setters: [function (module) {
       cclegacy = module.cclegacy;
@@ -3100,6 +3096,8 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
       betterRandom = module.betterRandom;
     }, function (module) {
       SpecialSymbolTypes = module.SpecialSymbolTypes;
+      specialSymbolIdToType = module.specialSymbolIdToType;
+      specialSymbolTypeToId = module.specialSymbolTypeToId;
       godTypeToSpecialSymbolType = module.godTypeToSpecialSymbolType;
     }, function (module) {
       shuffle = module.shuffle;
@@ -3161,11 +3159,12 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
       }]);
       var specialSymbolGodFeatureOnBonusHolderHitTable = exports('specialSymbolGodFeatureOnBonusHolderHitTable', (_specialSymbolGodFeat = {}, _specialSymbolGodFeat[GodFeatureTypes.Ares] = specialSymbolWildOnBonusHolderHitTable, _specialSymbolGodFeat[GodFeatureTypes.Athena] = specialSymbolMultiplierOnBonusHolderHitTable, _specialSymbolGodFeat));
       function generateRandomSymbols(data) {
-        var _data$currentSymbols, _data$specials$length, _data$specials;
+        var _data$currentSymbols, _data$specials$length, _data$specials, _specialsInGrid;
         var currentSymbols = (_data$currentSymbols = data == null ? void 0 : data.currentSymbols) != null ? _data$currentSymbols : Array(reelsData.playFieldDimensions.columns).fill([]);
         var rowsPerColumn = data != null && data.gods ? bonusReelsData.playFieldDimensions.rows : reelsData.playFieldDimensions.rows;
         var columns = data != null && data.gods ? bonusReelsData.playFieldDimensions.columns : reelsData.playFieldDimensions.columns;
         var hasSpecials = ((_data$specials$length = data == null || (_data$specials = data.specials) == null ? void 0 : _data$specials.length) != null ? _data$specials$length : 0) > 0;
+        var specialsInGrid = (_specialsInGrid = {}, _specialsInGrid[SpecialSymbolTypes.Wild] = 0, _specialsInGrid[SpecialSymbolTypes.Multiplier] = 0, _specialsInGrid);
         //Reverse because cocos y axis is inverted
         for (var col = 0; col < columns; col++) {
           var _data$currentSymbols$, _data$currentSymbols2;
@@ -3189,7 +3188,10 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
                   specials: data == null ? void 0 : data.specials,
                   cheat: data == null ? void 0 : data.cheat
                 });
-              } while (getSpecialSymbolCountInColumn(column, SpecialSymbolTypes.Wild) || getSpecialSymbolCountInColumn(column, SpecialSymbolTypes.Multiplier));
+              } while (specialsInGrid[specialSymbolIdToType[value]] && specialsInGrid[specialSymbolIdToType[value]] > gameData.freeSpins.maxSpecialSymbolCount[specialSymbolIdToType[value]] - 1);
+              if (specialSymbolIdToType[value]) {
+                specialsInGrid[specialSymbolIdToType[value]]++;
+              }
             } else {
               value = betterRandom({
                 gods: data == null ? void 0 : data.gods,
@@ -3207,7 +3209,7 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
       function getSpecialSymbolCountInColumn(column, specialType) {
         var maxSpecialCount = gameData.freeSpins.maxSpecialSymbolCount[specialType];
         return column.filter(function (item) {
-          return item.value === gameData.specialSymbolValues[specialType];
+          return item.value === specialSymbolTypeToId[specialType];
         }).length >= maxSpecialCount;
       }
       function drawGodFeatureActivation(data) {
@@ -3501,7 +3503,7 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
               if (limiter > 10) {
                 // To avoid infinite loop
                 selectedValue = {
-                  value: Math.floor(Math.random() * (gameData.specialSymbolValues.wild - 1)) + 1
+                  value: Math.floor(Math.random() * (specialSymbolTypeToId.wild - 1)) + 1
                 };
                 reelSymbolPerGod[godTypePerColumn[col]] = selectedValue;
                 break;
@@ -3509,7 +3511,7 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
               selectedValue = (_reelSymbolPerGod$god = reelSymbolPerGod[godTypePerColumn[col]]) != null ? _reelSymbolPerGod$god : structuredClone(currentColumn[randomIndex]);
               reelSymbolPerGod[godTypePerColumn[col]] = selectedValue;
               limiter++;
-            } while (selectedValue.value === gameData.specialSymbolValues.wild || selectedValue.value === gameData.specialSymbolValues.multiplier);
+            } while (selectedValue.value === specialSymbolTypeToId.wild || selectedValue.value === specialSymbolTypeToId.multiplier);
             var reel = [];
             for (var row = 0; row < currentColumn.length; row++) {
               reel.push(selectedValue);
@@ -4064,9 +4066,8 @@ System.register("chunks:///_virtual/godFeatureComponent.ts", ['./rollupPluginMod
             this.canTriggerPillar = drawChanceOfGodFeatureTrigger();
           }
         };
-        _proto.setRoundTypeHandler = function setRoundTypeHandler(roundType) {
-          console.error(roundType);
-          if (roundType !== RoundTypes.FreeSpin) {
+        _proto.setRoundTypeHandler = function setRoundTypeHandler(data) {
+          if (data.roundType !== RoundTypes.FreeSpin) {
             this.activatePot(FeatureStatus.Normal);
           }
         };
@@ -6636,7 +6637,7 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
         };
         _proto.getRandomNoWinValue = function getRandomNoWinValue(symbols) {
           var symbolCounts = symbols.reduce(function (acc, symbol) {
-            if (symbol.value === gameData.specialSymbolValues.wild || symbol.value === gameData.specialSymbolValues.multiplier) {
+            if (symbol.value === specialSymbolTypeToId.wild || symbol.value === specialSymbolTypeToId.multiplier) {
               return acc;
             }
             var count = acc.get(symbol.value) || 0;
@@ -6661,14 +6662,14 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
           });
         };
         _proto.hasWildInColumn = function hasWildInColumn(columnIndex) {
-          return this.reels[columnIndex].getVisibleSymbolValues(gameData.specialSymbolValues.wild).length > 0;
+          return this.reels[columnIndex].getVisibleSymbolValues(specialSymbolTypeToId.wild).length > 0;
         };
         _proto.getMultiplierTotal = function getMultiplierTotal() {
-          var symbols = flatMap(this.visibleSymbols, function (symbol) {
-            return symbol.symbolModel.value === gameData.specialSymbolValues.multiplier ? [symbol.symbolModel] : [];
+          var symbols = this.visibleSymbols.filter(function (symbol) {
+            return symbol.symbolModel.value === specialSymbolTypeToId.multiplier;
           });
           var totalMultiplier = symbols.reduce(function (acc, symbol) {
-            var symbolMultiplier = symbol.multiplier || 0;
+            var symbolMultiplier = symbol.symbolModel.multiplier || 0;
             return acc + symbolMultiplier;
           }, 0);
           return Math.max(totalMultiplier, 1);
@@ -6696,7 +6697,7 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
         ;
 
         _proto.getIsWildSymbolInWin = function getIsWildSymbolInWin(symbolModel, winData) {
-          if (symbolModel.value !== gameData.specialSymbolValues.wild) {
+          if (symbolModel.value !== specialSymbolTypeToId.wild) {
             return false;
           }
           return winData.filter(function (win) {
@@ -6801,7 +6802,7 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
           }
           //If there was a wild on this column, return that. The wild is always expanded to the whole column.
           var wildSymbol = column.find(function (item) {
-            return item.symbolModel.value === gameData.specialSymbolValues.wild;
+            return item.symbolModel.value === specialSymbolTypeToId.wild;
           });
           return wildSymbol != null ? wildSymbol : column[row];
         };
@@ -7013,7 +7014,7 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
           key: "visibleWildSymbols",
           get: function get() {
             return flatMap(this.reels, function (reel) {
-              return reel.getVisibleSymbolValues(gameData.specialSymbolValues.wild);
+              return reel.getVisibleSymbolValues(specialSymbolTypeToId.wild);
             });
           }
         }, {
@@ -7025,7 +7026,7 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
           key: "visibleMultiplierSymbols",
           get: function get() {
             return flatMap(this.reels, function (reel) {
-              return reel.getVisibleSymbolValues(gameData.specialSymbolValues.multiplier);
+              return reel.getVisibleSymbolValues(specialSymbolTypeToId.multiplier);
             });
           }
         }, {
@@ -7065,7 +7066,7 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
 });
 
 System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './randomizer.ts', './eventSignals.ts', './wait.ts', './reelsData.ts', './gameData.ts', './gameplayCalculations.ts', './coinData.ts', './godFeatureTypes.ts', './jackpotTypes.ts', './roundTypes.ts', './specialSymbols.ts', './bonusSideType.ts', './moveCoins.ts', './resolvablePromise.ts', './array.ts'], function (exports) {
-  var _asyncToGenerator, _regeneratorRuntime, _createForOfIteratorHelperLoose, cclegacy, Vec3, betterRandom, godFeatureResetSignal, setRoundTypeSignal, spinReelSignal, startRoundSignal, setReelsUpdateSignal, setReelsSignal, showReelResultSignal, freeSpinsActivateAnimationSignal, animateGodSymbolSignal, createWinningsSignal, increaseTumbleCountSignal, tumbleSymbolsSignal, popSymbolsSignal, respinGodsSignal, respinTriggerSignal, bonusResetRollsSignal, bonusStopRollsSignal, bonusStartRollsSignal, wait, reelsData, bonusReelsData, gameData, generateRandomSymbols, drawGodsInReels, generateJackpotCoinsResultTwo, addGodCoinsToCoinsResult, getGodReelsResult, generateGodReelsResult, drawGodFeatureActivation, CoinTypes, GodFeatureTypes, godFeatureTypeToId, godToJackpotType, RoundTypes, specialSymbolTypeToGodType, specialSymbolTypeToId, SpecialSymbolTypes, BonusSideType, moveJackpotCoins, moveFeatureCoins, ResolvablePromise, shuffle;
+  var _asyncToGenerator, _regeneratorRuntime, _createForOfIteratorHelperLoose, cclegacy, Vec3, betterRandom, godFeatureResetSignal, setRoundTypeSignal, spinReelSignal, startRoundSignal, setReelsUpdateSignal, setReelsSignal, showReelResultSignal, freeSpinsActivateAnimationSignal, animateGodSymbolSignal, createWinningsSignal, increaseTumbleCountSignal, tumbleSymbolsSignal, popSymbolsSignal, respinGodsSignal, respinTriggerSignal, bonusResetRollsSignal, bonusStopRollsSignal, bonusStartRollsSignal, wait, reelsData, bonusReelsData, gameData, generateRandomSymbols, drawGodsInReels, generateJackpotCoinsResultTwo, addGodCoinsToCoinsResult, getGodReelsResult, generateGodReelsResult, drawGodFeatureActivation, CoinTypes, GodFeatureTypes, godFeatureTypeToId, godToJackpotType, RoundTypes, specialSymbolTypeToGodType, specialSymbolTypeToId, SpecialSymbolTypes, BonusSideType, moveJackpotCoins, moveFeatureCoins, ResolvablePromise, shuffle, flatMap;
   return {
     setters: [function (module) {
       _asyncToGenerator = module.asyncToGenerator;
@@ -7132,6 +7133,7 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
       ResolvablePromise = module.ResolvablePromise;
     }, function (module) {
       shuffle = module.shuffle;
+      flatMap = module.flatMap;
     }],
     execute: function () {
       exports('playfieldUpdate', playfieldUpdate);
@@ -7190,18 +7192,18 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
                 _context.next = 23;
                 return handleRespinTrigger(models, reverse);
               case 23:
+                if (models.gameplay.roundType === RoundTypes.Normal && models.playfield.tumbleTotalCount >= gameData.bonus.tumble.minimumCount) {
+                  models.bonus.isBonusAvailable = true;
+                }
                 if (!(models.gameplay.hasAnySpecialActivated && models.gameplay.roundType !== RoundTypes.FreeSpin)) {
-                  _context.next = 26;
+                  _context.next = 27;
                   break;
                 }
                 setRoundTypeSignal.dispatch({
                   roundType: RoundTypes.FreeSpin
                 });
                 return _context.abrupt("return");
-              case 26:
-                if (models.playfield.tumbleTotalCount >= gameData.bonus.tumble.minimumCount) {
-                  models.bonus.isBonusAvailable = true;
-                }
+              case 27:
                 if (!(models.gameplay.roundType === RoundTypes.FreeSpin)) {
                   _context.next = 37;
                   break;
@@ -7615,7 +7617,6 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
           currentWon += winnings;
         });
         var totalMultiplier = models.playfield.getMultiplierTotal();
-        models.hud.won += currentWon * totalMultiplier;
         return {
           won: currentWon,
           multiplier: totalMultiplier
@@ -7623,19 +7624,17 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
       }
       function getWinlinesFromTumbleData(symbols, tumbleData) {
         var winlinesArray = new Map();
-        var wilds = new Map();
-        var multipliers = new Map();
+        var flatMapSymbols = flatMap(symbols, function (symbolColumn) {
+          return symbolColumn;
+        });
+        var wildCount = flatMapSymbols.filter(function (symbolColumn) {
+          return symbolColumn.value === specialSymbolTypeToId[SpecialSymbolTypes.Wild];
+        }).length;
         tumbleData.forEach(function (data) {
           var col = data.colId;
           data.removedIndices.forEach(function (row) {
             var symbol = symbols[col][row];
-            if (symbol.value === gameData.specialSymbolValues.wild) {
-              var _wilds$get;
-              wilds.set(col, ((_wilds$get = wilds.get(col)) != null ? _wilds$get : 0) + 1);
-            } else if (symbol.value === gameData.specialSymbolValues.multiplier) {
-              var _multipliers$get;
-              multipliers.set(col, ((_multipliers$get = multipliers.get(col)) != null ? _multipliers$get : 0) + 1);
-            } else {
+            if (symbol.value !== specialSymbolTypeToId.wild && symbol.value !== specialSymbolTypeToId.multiplier) {
               var _winlinesArray$get;
               winlinesArray.set(symbol.value, ((_winlinesArray$get = winlinesArray.get(symbol.value)) != null ? _winlinesArray$get : 0) + 1);
             }
@@ -7643,11 +7642,8 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
         });
 
         // Add count of wilds to all winlines
-        winlinesArray.forEach(function (value, count) {
-          if (wilds.has(value)) {
-            var _wilds$get2;
-            winlinesArray.set(value, count + ((_wilds$get2 = wilds.get(value)) != null ? _wilds$get2 : 0));
-          }
+        winlinesArray.forEach(function (count, value) {
+          winlinesArray.set(value, count + wildCount);
         });
         var winlines = Array.from(winlinesArray.entries()).map(function (_ref) {
           var value = _ref[0],
@@ -7847,6 +7843,7 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
                     multiplier: currentWon.multiplier
                   });
                   totalWon += currentWon.won * currentWon.multiplier;
+                  models.hud.won = totalWon;
                 }
                 firstRespinPop = false;
                 void wait(800).then(function () {
@@ -8009,6 +8006,12 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
       function getWinningSymbols(symbols, mimimumCount, options) {
         var symbolCount = {};
         var winningSymbols = [];
+        var flatMapSymbols = flatMap(symbols, function (symbolColumn) {
+          return symbolColumn;
+        });
+        var wildCount = flatMapSymbols.filter(function (symbolColumn) {
+          return symbolColumn.value === specialSymbolTypeToId[SpecialSymbolTypes.Wild];
+        }).length;
         symbols.forEach(function (symbolColumn) {
           symbolColumn.forEach(function (symbol, i) {
             var _symbolCount$symbol$v;
@@ -8017,7 +8020,8 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
             }
             symbolCount[symbol.value] = ((_symbolCount$symbol$v = symbolCount[symbol.value]) != null ? _symbolCount$symbol$v : 0) + 1;
             var currentMinimumCount = options != null && options.isRespinPop ? 1 : mimimumCount;
-            if (symbolCount[symbol.value] >= currentMinimumCount || symbol.value === specialSymbolTypeToId[SpecialSymbolTypes.Wild] || symbol.value === specialSymbolTypeToId[SpecialSymbolTypes.Multiplier]) {
+            var isWinningSymbol = symbolCount[symbol.value] >= currentMinimumCount || symbolCount[symbol.value] + wildCount >= currentMinimumCount;
+            if (isWinningSymbol || symbol.value === specialSymbolTypeToId[SpecialSymbolTypes.Wild] || symbol.value === specialSymbolTypeToId[SpecialSymbolTypes.Multiplier]) {
               if (!winningSymbols.includes(symbol.value)) {
                 winningSymbols.push(symbol.value);
               }
@@ -8035,9 +8039,6 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
         }
 
         //Add wilds to normal symbol count
-        var wildCount = winningSymbols.filter(function (symbolValue) {
-          return symbolValue === specialSymbolTypeToId[SpecialSymbolTypes.Wild];
-        }).length;
         var keys = Object.keys(symbolCount).map(function (key) {
           return parseInt(key);
         });
@@ -8261,7 +8262,7 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
               case 0:
                 models.gameplay.bonusStarted = true;
                 _context14.next = 3;
-                return wait(1200);
+                return wait(800);
               case 3:
                 models.hud.won = 0;
                 mainMultiplier = models.playfield.setMultiplierFromTumbleCount(tumbleCount);
@@ -8271,7 +8272,7 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
                   roundType: RoundTypes.Bonus
                 });
                 _context14.next = 10;
-                return wait(600);
+                return wait(1000);
               case 10:
                 bonusSpins = models.bonus.bonusSpins;
                 promises = [];
@@ -8289,10 +8290,8 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
                               case 0:
                                 spinsLeft = models.bonus.getBonusSpinsLeftOfSide(spin.sideType);
                                 isGridFull = models.bonus.getBonusSpinsSideIsFull(spin.sideType);
-                                console.log('playBonusRound - Spins Left:', spinsLeft);
-                                console.log('playBonusRound - Grid Full:', isGridFull);
-                                if (!(spinsLeft > 0 && isGridFull || spin.sideType === BonusSideType.Center)) {
-                                  _context12.next = 15;
+                                if (!(spinsLeft > 0 && !isGridFull || spin.sideType === BonusSideType.Center)) {
+                                  _context12.next = 13;
                                   break;
                                 }
                                 models.bonus.subtractBonusSpinsLeftOfSide(spin.sideType);
@@ -8300,22 +8299,22 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
                                 bonusStartRollsSignal.dispatch({
                                   sideType: spin.sideType
                                 });
-                                _context12.next = 10;
+                                _context12.next = 8;
                                 return wait(2000);
-                              case 10:
+                              case 8:
                                 bonusStopRollsSignal.dispatch({
                                   sideType: spin.sideType
                                 });
-                                _context12.next = 13;
+                                _context12.next = 11;
                                 return wait(1000);
-                              case 13:
+                              case 11:
                                 hasNewResult = models.bonus.previousResultCount[spin.sideType] < models.bonus.bonusResult[spin.sideType].length;
                                 if (hasNewResult) {
                                   models.bonus.setBonusSpinsLeftOfSide(spin.sideType, 3);
                                 }
-                              case 15:
+                              case 13:
                                 resolve();
-                              case 16:
+                              case 14:
                               case "end":
                                 return _context12.stop();
                             }
@@ -8393,9 +8392,9 @@ System.register("chunks:///_virtual/randomizer.ts", ['cc', './specialSymbols.ts'
       exports('betterRandom', betterRandom);
       cclegacy._RF.push({}, "43013uUXbVIAbMwkpPqNbOx", "randomizer", undefined);
       var logicValues = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9];
-      var aresValues = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
-      var athenaValues = [11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11];
-      var cheatValues = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6];
+      var aresValues = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
+      var athenaValues = [11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11];
+      var cheatValues = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
       function betterRandom(data) {
         var _data$specials, _data$specials2;
         var list = data.cheat ? cheatValues : logicValues;
@@ -9288,8 +9287,8 @@ System.register("chunks:///_virtual/reelService.ts", ['./rollupPluginModLoBabelH
           this.reelModel.status = ReelStatus.Stopped;
           this.reelModel.isRespin = false;
         };
-        _proto.setRoundTypeHandler = function setRoundTypeHandler(roundType) {
-          this.roundType = roundType;
+        _proto.setRoundTypeHandler = function setRoundTypeHandler(data) {
+          this.roundType = data.roundType;
         };
         _proto.spinReelHandler = /*#__PURE__*/function () {
           var _spinReelHandler = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(args) {
@@ -10125,8 +10124,8 @@ System.register("chunks:///_virtual/symbolAnimationData.ts", ['cc'], function ()
   };
 });
 
-System.register("chunks:///_virtual/symbolModel.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './godFeatureTypes.ts', './array.ts', './commonAnimations.ts', './gameData.ts'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, CCInteger, CCBoolean, Label, Component, godFeatureTypeToId, shuffle, scaleFadeAnimation, gameData;
+System.register("chunks:///_virtual/symbolModel.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './godFeatureTypes.ts', './array.ts', './commonAnimations.ts', './specialSymbols.ts'], function (exports) {
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, CCInteger, CCBoolean, Label, Component, godFeatureTypeToId, shuffle, scaleFadeAnimation, specialSymbolTypeToId;
   return {
     setters: [function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
@@ -10148,7 +10147,7 @@ System.register("chunks:///_virtual/symbolModel.ts", ['./rollupPluginModLoBabelH
     }, function (module) {
       scaleFadeAnimation = module.scaleFadeAnimation;
     }, function (module) {
-      gameData = module.gameData;
+      specialSymbolTypeToId = module.specialSymbolTypeToId;
     }],
     execute: function () {
       var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5;
@@ -10208,7 +10207,7 @@ System.register("chunks:///_virtual/symbolModel.ts", ['./rollupPluginModLoBabelH
             rowId: -1
           };
           this.multiplierLbl = (_this$getComponentInC = this.getComponentInChildren(Label)) != null ? _this$getComponentInC : undefined;
-          if (this._value === gameData.specialSymbolValues.multiplier) {
+          if (this._value === specialSymbolTypeToId.multiplier) {
             this.multiplier = this.getRandomMultiplier();
           }
         };
