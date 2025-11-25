@@ -128,6 +128,109 @@ System.register("chunks:///_virtual/audioComponent.ts", ['./rollupPluginModLoBab
   };
 });
 
+System.register("chunks:///_virtual/backgroundAudioComponent.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './gameClasses.ts', './eventSignals.ts'], function (exports) {
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, cclegacy, _decorator, AudioSource, Button, SpriteFrame, Component, BackGroundAudio, setRoundTypeSignal;
+  return {
+    setters: [function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _inheritsLoose = module.inheritsLoose;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _assertThisInitialized = module.assertThisInitialized;
+    }, function (module) {
+      cclegacy = module.cclegacy;
+      _decorator = module._decorator;
+      AudioSource = module.AudioSource;
+      Button = module.Button;
+      SpriteFrame = module.SpriteFrame;
+      Component = module.Component;
+    }, function (module) {
+      BackGroundAudio = module.BackGroundAudio;
+    }, function (module) {
+      setRoundTypeSignal = module.setRoundTypeSignal;
+    }],
+    execute: function () {
+      var _dec, _dec2, _dec3, _dec4, _dec5, _class, _class2, _descriptor, _descriptor2, _descriptor3;
+      cclegacy._RF.push({}, "32a47m7TLJMMbkTQLMzbK6N", "backgroundAudioComponent", undefined);
+      var ccclass = _decorator.ccclass,
+        property = _decorator.property,
+        requireComponent = _decorator.requireComponent;
+      var BackgroundAudioComponent = exports('BackgroundAudioComponent', (_dec = ccclass('BackgroundAudioComponent'), _dec2 = requireComponent(AudioSource), _dec3 = property([BackGroundAudio]), _dec4 = property(Button), _dec5 = property([SpriteFrame]), _dec(_class = _dec2(_class = (_class2 = /*#__PURE__*/function (_Component) {
+        _inheritsLoose(BackgroundAudioComponent, _Component);
+        function BackgroundAudioComponent() {
+          var _this;
+          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+          _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+          _initializerDefineProperty(_this, "backgroundAmbient", _descriptor, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "soundButton", _descriptor2, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "toggleFrames", _descriptor3, _assertThisInitialized(_this));
+          _this.audioSource = void 0;
+          _this.isMute = false;
+          _this.setRoundTypeBind = _this.setRoundTypeHandler.bind(_assertThisInitialized(_this));
+          return _this;
+        }
+        var _proto = BackgroundAudioComponent.prototype;
+        _proto.onLoad = function onLoad() {
+          this.audioSource = this.getComponent(AudioSource);
+          setRoundTypeSignal.addListener(this.setRoundTypeBind);
+          this.changeSpriteFrames(this.toggleFrames[Number(this.isMute)]);
+        };
+        _proto.changeSpriteFrames = function changeSpriteFrames(frame) {
+          this.soundButton.hoverSprite = frame;
+          this.soundButton.normalSprite = frame;
+          this.soundButton.pressedSprite = frame;
+          this.soundButton.disabledSprite = frame;
+        };
+        _proto.onDestroy = function onDestroy() {
+          setRoundTypeSignal.removeListener(this.setRoundTypeBind);
+        };
+        _proto.setRoundTypeHandler = function setRoundTypeHandler(args) {
+          var _this$backgroundAmbie;
+          this.audioSource.stop();
+          var track = (_this$backgroundAmbie = this.backgroundAmbient.find(function (item) {
+            return item.type === args.roundType;
+          })) != null ? _this$backgroundAmbie : this.backgroundAmbient[0];
+          this.audioSource.clip = track.audioClip;
+          this.audioSource.play();
+        };
+        _proto.soundButtonPressed = function soundButtonPressed() {
+          this.isMute = !this.isMute;
+          this.changeSpriteFrames(this.toggleFrames[Number(this.isMute)]);
+          if (this.isMute) {
+            this.audioSource.pause();
+            return;
+          }
+          this.audioSource.play();
+        };
+        return BackgroundAudioComponent;
+      }(Component), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "backgroundAmbient", [_dec3], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function initializer() {
+          return [];
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "soundButton", [_dec4], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function initializer() {
+          return null;
+        }
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "toggleFrames", [_dec5], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function initializer() {
+          return [];
+        }
+      })), _class2)) || _class) || _class));
+      cclegacy._RF.pop();
+    }
+  };
+});
+
 System.register("chunks:///_virtual/backgroundComponent.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './eventSignals.ts', './gameClasses.ts'], function (exports) {
   var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, cclegacy, _decorator, Sprite, Component, setRoundTypeSignal, RoundBackground;
   return {
@@ -550,8 +653,8 @@ System.register("chunks:///_virtual/bonusItemModel.ts", ['./rollupPluginModLoBab
   };
 });
 
-System.register("chunks:///_virtual/bonusModel.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './gameClasses.ts', './array.ts', './bonusTypes.ts', './jackpotTypes.ts', './eventSignals.ts', './commonAnimations.ts', './bonusSideType.ts', './hudModel.ts', './bonusRollComponent.ts', './reelStatus.ts', './wait.ts', './reelsData.ts'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _asyncToGenerator, _regeneratorRuntime, _createClass, cclegacy, _decorator, CCFloat, CCBoolean, Component, BonusItem, BonusSpins, BonusMainMultiplier, shuffle, BonusItemTypes, BonusModifierTypes, itemsWithValue, JackpotTypes, JackpotTriggerTypes, bonusActivateItemSignal, scaleFadeAnimation, BonusSideType, bonusSideTypeToGodFeatureType, HudModel, BonusRollComponent, ReelStatus, wait, reelsData;
+System.register("chunks:///_virtual/bonusModel.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './gameClasses.ts', './array.ts', './bonusTypes.ts', './jackpotTypes.ts', './eventSignals.ts', './commonAnimations.ts', './bonusSideType.ts', './hudModel.ts', './bonusRollComponent.ts', './reelStatus.ts', './wait.ts', './reelsData.ts', './randomizer.ts'], function (exports) {
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _asyncToGenerator, _regeneratorRuntime, _createClass, cclegacy, _decorator, CCFloat, CCBoolean, Component, BonusItem, BonusSpins, BonusMainMultiplier, shuffle, BonusItemTypes, BonusModifierTypes, itemsWithValue, JackpotTypes, JackpotTriggerTypes, bonusActivateItemSignal, scaleFadeAnimation, BonusSideType, bonusSideTypeToGodFeatureType, HudModel, BonusRollComponent, ReelStatus, wait, reelsData, createWeightedArray;
   return {
     setters: [function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
@@ -597,6 +700,8 @@ System.register("chunks:///_virtual/bonusModel.ts", ['./rollupPluginModLoBabelHe
       wait = module.wait;
     }, function (module) {
       reelsData = module.reelsData;
+    }, function (module) {
+      createWeightedArray = module.createWeightedArray;
     }],
     execute: function () {
       var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9;
@@ -880,91 +985,15 @@ System.register("chunks:///_virtual/bonusModel.ts", ['./rollupPluginModLoBabelHe
           }
           this.cheatCollectItems = shuffle(this.cheatCollectItems);
           this.cheatJackpotItems = shuffle(this.cheatJackpotItems);
-          var itemsRollKeys = Object.keys(this.drawItemRollWeights);
-          for (var _i2 = 0; _i2 < itemsRollKeys.length; _i2++) {
-            var _item2 = itemsRollKeys[_i2];
-            if (this.drawItemRollWeights[_item2] === 0) {
-              continue;
-            }
-            for (var _j3 = 0; _j3 < this.drawItemRollWeights[_item2]; _j3++) {
-              this.drawItemsRoll.push(_item2);
-            }
-          }
-          this.drawItemsRoll = shuffle(this.drawItemsRoll);
-          var modifierItemsKeys = Object.keys(this.drawModifierWeights);
-          for (var _i3 = 0; _i3 < modifierItemsKeys.length; _i3++) {
-            var _item3 = modifierItemsKeys[_i3];
-            if (this.drawModifierWeights[_item3] === 0) {
-              continue;
-            }
-            for (var _j4 = 0; _j4 < this.drawModifierWeights[_item3]; _j4++) {
-              this.drawModifiers.push(_item3);
-            }
-          }
-          this.drawModifiers = shuffle(this.drawModifiers);
-          var modifierCheatsKeys = Object.keys(this.cheatModifierWeights);
-          for (var _i4 = 0; _i4 < modifierCheatsKeys.length; _i4++) {
-            var _item4 = modifierCheatsKeys[_i4];
-            if (this.cheatModifierWeights[_item4] === 0) {
-              continue;
-            }
-            for (var _j5 = 0; _j5 < this.cheatModifierWeights[_item4]; _j5++) {
-              this.cheatModifiers.push(_item4);
-            }
-          }
-          this.cheatModifiers = shuffle(this.cheatModifiers);
-          var jackpotItemsKeys = Object.keys(this.drawJackpotWeights);
-          for (var _i5 = 0; _i5 < jackpotItemsKeys.length; _i5++) {
-            var _item5 = jackpotItemsKeys[_i5];
-            if (this.drawJackpotWeights[_item5] === 0) {
-              continue;
-            }
-            for (var _j6 = 0; _j6 < this.drawJackpotWeights[_item5]; _j6++) {
-              this.drawJackpots.push(_item5);
-            }
-          }
-          this.drawJackpots = shuffle(this.drawJackpots);
+          this.drawItemsRoll = createWeightedArray(this.drawItemRollWeights);
+          this.drawModifiers = createWeightedArray(this.drawModifierWeights);
+          this.cheatModifiers = createWeightedArray(this.cheatModifierWeights);
+          this.drawJackpots = createWeightedArray(this.drawJackpotWeights);
         };
         _proto.generateValuesLists = function generateValuesLists() {
-          var cashValuesKeys = Object.keys(this.drawCashValueWeights).map(function (key) {
-            return Number(key);
-          });
-          for (var i = 0; i < cashValuesKeys.length; i++) {
-            var value = cashValuesKeys[i];
-            if (this.drawCashValueWeights[value] === 0) {
-              continue;
-            }
-            for (var j = 0; j < this.drawCashValueWeights[value]; j++) {
-              this.drawCashValues.push(value);
-            }
-          }
-          this.drawCashValues = shuffle(this.drawCashValues);
-          var multiplierValuesKeys = Object.keys(this.drawMultiplierValueWeights).map(function (key) {
-            return Number(key);
-          });
-          for (var _i6 = 0; _i6 < multiplierValuesKeys.length; _i6++) {
-            var _value = multiplierValuesKeys[_i6];
-            if (this.drawMultiplierValueWeights[_value] === 0) {
-              continue;
-            }
-            for (var _j7 = 0; _j7 < this.drawMultiplierValueWeights[_value]; _j7++) {
-              this.drawMultiplierValues.push(_value);
-            }
-          }
-          this.drawMultiplierValues = shuffle(this.drawMultiplierValues);
-          var multiplyCountKeys = Object.keys(this.drawMultiplyCountWeights).map(function (key) {
-            return Number(key);
-          });
-          for (var _i7 = 0; _i7 < multiplyCountKeys.length; _i7++) {
-            var _value2 = multiplyCountKeys[_i7];
-            if (this.drawMultiplyCountWeights[_value2] === 0) {
-              continue;
-            }
-            for (var _j8 = 0; _j8 < this.drawMultiplyCountWeights[_value2]; _j8++) {
-              this.drawMultiplyCount.push(_value2);
-            }
-          }
-          this.drawMultiplyCount = shuffle(this.drawMultiplyCount);
+          this.drawCashValues = createWeightedArray(this.drawCashValueWeights);
+          this.drawMultiplierValues = createWeightedArray(this.drawMultiplierValueWeights);
+          this.drawMultiplyCount = createWeightedArray(this.drawMultiplyCountWeights);
         };
         _proto.multiplyCashItems = function multiplyCashItems(multiplier) {
           var items = this.allBonusResults.filter(function (item) {
@@ -1616,8 +1645,8 @@ System.register("chunks:///_virtual/bonusTypes.ts", ['cc', './jackpotTypes.ts'],
   };
 });
 
-System.register("chunks:///_virtual/coinComponent.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './coinData.ts', './jackpotTypes.ts', './curveTween.ts', './eventSignals.ts', './godFeatureTypes.ts', './roundTypes.ts'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, Enum, Label, Vec2, tween, Vec3, Component, CoinTypes, JackpotTypes, JackpotTriggerTypes, jackpotTypeToTriggerType, moveInCurve, moveCoinSignal, moveCoinCompleteSignal, godFeatureSignal, GodFeatureTypes, RoundTypes;
+System.register("chunks:///_virtual/coinComponent.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './coinData.ts', './jackpotTypes.ts', './curveTween.ts', './eventSignals.ts', './godFeatureTypes.ts', './roundTypes.ts', './gameData.ts'], function (exports) {
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, Enum, Label, Vec2, tween, Vec3, Component, CoinTypes, JackpotTypes, JackpotTriggerTypes, jackpotTypeToTriggerType, moveInCurve, moveCoinSignal, moveCoinCompleteSignal, godFeatureSignal, GodFeatureTypes, RoundTypes, gameData;
   return {
     setters: [function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
@@ -1650,6 +1679,8 @@ System.register("chunks:///_virtual/coinComponent.ts", ['./rollupPluginModLoBabe
       GodFeatureTypes = module.GodFeatureTypes;
     }, function (module) {
       RoundTypes = module.RoundTypes;
+    }, function (module) {
+      gameData = module.gameData;
     }],
     execute: function () {
       var _dec, _dec2, _dec3, _dec4, _dec5, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4;
@@ -1733,7 +1764,7 @@ System.register("chunks:///_virtual/coinComponent.ts", ['./rollupPluginModLoBabe
             if (args.roundType === RoundTypes.Normal) {
               godFeatureSignal.dispatch({
                 feature: args.coinData.valueType,
-                addAmount: 1
+                addAmount: gameData.freeSpins.fillAmount
               });
             }
             this.isCoinCompleted = true;
@@ -1983,12 +2014,12 @@ System.register("chunks:///_virtual/curveTween.ts", ['cc'], function (exports) {
             var _node$position, _node$position2;
             // Calculate the position on the Bezier curve using the tweened progress
             var currentPos = getQuadraticBezierPoint(startPos, controlPoint, endPos, tweenTarget.progress);
-            if (!currentPos || !currentPos.x || !currentPos.y) {
-              console.warn('Current position is undefined', currentPos);
+            if (!currentPos || currentPos.x === undefined || currentPos.y === undefined || Number.isNaN(currentPos.x) || Number.isNaN(currentPos.y)) {
+              console.warn('Current position is undefined or invalid', currentPos);
               return;
             }
-            if (!(node != null && node.x) || !(node != null && node.y) || !(node != null && (_node$position = node.position) != null && _node$position.x) || !(node != null && (_node$position2 = node.position) != null && _node$position2.y)) {
-              console.warn('Node position is undefined', node);
+            if (!node || node.x === undefined || node.y === undefined || ((_node$position = node.position) == null ? void 0 : _node$position.x) === undefined || ((_node$position2 = node.position) == null ? void 0 : _node$position2.y) === undefined || Number.isNaN(node.position.x) || Number.isNaN(node.position.y)) {
+              console.warn('Node position is undefined or invalid', node);
               return;
             }
             // Update the node's position
@@ -2295,8 +2326,8 @@ System.register("chunks:///_virtual/featureStatus.ts", ['cc'], function (exports
   };
 });
 
-System.register("chunks:///_virtual/game.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './playfieldModel.ts', './eventSignals.ts', './playfieldComponent.ts', './reelsData.ts', './gameplayCalculations.ts'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, cclegacy, _decorator, director, Component, PlayfieldModel, playfieldLoadedSignal, setReelsSignal, PlayfieldComponent, bonusReelsData, generateRandomSymbols;
+System.register("chunks:///_virtual/game.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './playfieldModel.ts', './eventSignals.ts', './playfieldComponent.ts', './reelsData.ts', './gameplayCalculations.ts', './gameplayModel.ts'], function (exports) {
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, cclegacy, _decorator, director, Component, PlayfieldModel, playfieldLoadedSignal, setReelsSignal, PlayfieldComponent, bonusReelsData, generateRandomSymbols, GameplayModel;
   return {
     setters: [function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
@@ -2319,6 +2350,8 @@ System.register("chunks:///_virtual/game.ts", ['./rollupPluginModLoBabelHelpers.
       bonusReelsData = module.bonusReelsData;
     }, function (module) {
       generateRandomSymbols = module.generateRandomSymbols;
+    }, function (module) {
+      GameplayModel = module.GameplayModel;
     }],
     execute: function () {
       var _dec, _dec2, _class, _class2, _descriptor;
@@ -2334,6 +2367,7 @@ System.register("chunks:///_virtual/game.ts", ['./rollupPluginModLoBabelHelpers.
           }
           _this = _Component.call.apply(_Component, [this].concat(args)) || this;
           _this.playfieldModel = null;
+          _this.gameplayModel = null;
           _initializerDefineProperty(_this, "playfieldComponent", _descriptor, _assertThisInitialized(_this));
           _this.isPaused = false;
           _this.playfieldLoadedBind = _this.playfieldLoadedHandler.bind(_assertThisInitialized(_this));
@@ -2361,11 +2395,15 @@ System.register("chunks:///_virtual/game.ts", ['./rollupPluginModLoBabelHelpers.
         _proto.playfieldLoadedHandler = function playfieldLoadedHandler() {
           this.playfieldComponent = this.node.scene.getComponentInChildren(PlayfieldComponent);
           this.playfieldModel = this.playfieldComponent.getComponent(PlayfieldModel);
+          this.gameplayModel = this.node.scene.getComponentInChildren(GameplayModel);
           this.setStartSymbols();
           this.setStartGodSymbols();
         };
         _proto.setStartSymbols = function setStartSymbols() {
-          var currentSymbols = generateRandomSymbols({});
+          var pillarCountPerGod = this.gameplayModel.getCurrentPillarCounts();
+          var currentSymbols = generateRandomSymbols({
+            pillarCountPerGod: pillarCountPerGod
+          });
           this.playfieldModel.reels.forEach(function (r, i) {
             r.reelModel.result = currentSymbols[i];
           });
@@ -2443,7 +2481,7 @@ System.register("chunks:///_virtual/gameClasses.ts", ['./rollupPluginModLoBabelH
       BonusSideType = module.BonusSideType;
     }],
     execute: function () {
-      var _dec, _dec2, _dec3, _class, _class2, _descriptor, _descriptor2, _dec4, _dec5, _dec6, _class4, _class5, _descriptor3, _descriptor4, _dec7, _dec8, _dec9, _class7, _class8, _descriptor5, _descriptor6, _dec10, _dec11, _dec12, _class10, _class11, _descriptor7, _descriptor8, _dec13, _dec14, _dec15, _dec16, _class13, _class14, _descriptor9, _descriptor10, _descriptor11, _dec17, _class16, _dec18, _dec19, _dec20, _class18, _class19, _descriptor12, _descriptor13, _dec21, _dec22, _dec23, _dec24, _class21, _class22, _descriptor14, _descriptor15, _descriptor16, _dec25, _dec26, _dec27, _class24, _class25, _descriptor17, _descriptor18, _dec28, _dec29, _dec30, _class27, _class28, _descriptor19, _descriptor20, _dec31, _dec32, _dec33, _dec34, _class30, _class31, _descriptor21, _descriptor22, _descriptor23, _dec35, _dec36, _dec37, _class33, _class34, _descriptor24, _descriptor25, _dec38, _dec39, _dec40, _class36, _class37, _descriptor26, _descriptor27, _dec41, _dec42, _dec43, _class39, _class40, _descriptor28, _descriptor29;
+      var _dec, _dec2, _dec3, _class, _class2, _descriptor, _descriptor2, _dec4, _dec5, _dec6, _class4, _class5, _descriptor3, _descriptor4, _dec7, _dec8, _dec9, _class7, _class8, _descriptor5, _descriptor6, _dec10, _dec11, _dec12, _class10, _class11, _descriptor7, _descriptor8, _dec13, _dec14, _dec15, _dec16, _class13, _class14, _descriptor9, _descriptor10, _descriptor11, _dec17, _class16, _dec18, _dec19, _dec20, _class18, _class19, _descriptor12, _descriptor13, _dec21, _dec22, _dec23, _dec24, _class21, _class22, _descriptor14, _descriptor15, _descriptor16, _dec25, _dec26, _dec27, _class24, _class25, _descriptor17, _descriptor18, _dec28, _dec29, _dec30, _class27, _class28, _descriptor19, _descriptor20, _dec31, _dec32, _dec33, _dec34, _class30, _class31, _descriptor21, _descriptor22, _descriptor23, _dec35, _dec36, _dec37, _class33, _class34, _descriptor24, _descriptor25, _dec38, _dec39, _dec40, _class36, _class37, _descriptor26, _descriptor27, _dec41, _dec42, _dec43, _class39, _class40, _descriptor28, _descriptor29, _dec44, _dec45, _dec46, _class42, _class43, _descriptor30, _descriptor31;
       cclegacy._RF.push({}, "2922ffGmExIrqZRXxOSJO5s", "gameClasses", undefined);
       var ccclass = _decorator.ccclass,
         property = _decorator.property;
@@ -2768,9 +2806,9 @@ System.register("chunks:///_virtual/gameClasses.ts", ['./rollupPluginModLoBabelH
           return null;
         }
       })), _class34)) || _class33));
-      var GodAudio = exports('GodAudio', (_dec38 = ccclass('GodAudio'), _dec39 = property({
-        type: Enum(GodFeatureTypes)
-      }), _dec40 = property(AudioClip), _dec38(_class36 = (_class37 = function GodAudio() {
+      var BackGroundAudio = exports('BackGroundAudio', (_dec38 = ccclass('BackGroundAudio'), _dec39 = property({
+        type: Enum(RoundTypes)
+      }), _dec40 = property(AudioClip), _dec38(_class36 = (_class37 = function BackGroundAudio() {
         _initializerDefineProperty(this, "type", _descriptor26, this);
         _initializerDefineProperty(this, "audioClip", _descriptor27, this);
       }, (_descriptor26 = _applyDecoratedDescriptor(_class37.prototype, "type", [_dec39], {
@@ -2786,17 +2824,17 @@ System.register("chunks:///_virtual/gameClasses.ts", ['./rollupPluginModLoBabelH
           return null;
         }
       })), _class37)) || _class36));
-      var RoundBackground = exports('RoundBackground', (_dec41 = ccclass('RoundBackground'), _dec42 = property({
-        type: Enum(RoundTypes)
-      }), _dec43 = property(SpriteFrame), _dec41(_class39 = (_class40 = function RoundBackground() {
+      var GodAudio = exports('GodAudio', (_dec41 = ccclass('GodAudio'), _dec42 = property({
+        type: Enum(GodFeatureTypes)
+      }), _dec43 = property(AudioClip), _dec41(_class39 = (_class40 = function GodAudio() {
         _initializerDefineProperty(this, "type", _descriptor28, this);
-        _initializerDefineProperty(this, "texture", _descriptor29, this);
+        _initializerDefineProperty(this, "audioClip", _descriptor29, this);
       }, (_descriptor28 = _applyDecoratedDescriptor(_class40.prototype, "type", [_dec42], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: null
-      }), _descriptor29 = _applyDecoratedDescriptor(_class40.prototype, "texture", [_dec43], {
+      }), _descriptor29 = _applyDecoratedDescriptor(_class40.prototype, "audioClip", [_dec43], {
         configurable: true,
         enumerable: true,
         writable: true,
@@ -2804,6 +2842,24 @@ System.register("chunks:///_virtual/gameClasses.ts", ['./rollupPluginModLoBabelH
           return null;
         }
       })), _class40)) || _class39));
+      var RoundBackground = exports('RoundBackground', (_dec44 = ccclass('RoundBackground'), _dec45 = property({
+        type: Enum(RoundTypes)
+      }), _dec46 = property(SpriteFrame), _dec44(_class42 = (_class43 = function RoundBackground() {
+        _initializerDefineProperty(this, "type", _descriptor30, this);
+        _initializerDefineProperty(this, "texture", _descriptor31, this);
+      }, (_descriptor30 = _applyDecoratedDescriptor(_class43.prototype, "type", [_dec45], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: null
+      }), _descriptor31 = _applyDecoratedDescriptor(_class43.prototype, "texture", [_dec46], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function initializer() {
+          return null;
+        }
+      })), _class43)) || _class42));
       cclegacy._RF.pop();
     }
   };
@@ -2848,6 +2904,7 @@ System.register("chunks:///_virtual/gameData.ts", ['cc', './godFeatureTypes.ts',
           }
         },
         freeSpins: {
+          fillAmount: 5,
           maxSpecialSymbolCount: (_maxSpecialSymbolCoun = {}, _maxSpecialSymbolCoun[SpecialSymbolTypes.Wild] = 6, _maxSpecialSymbolCoun[SpecialSymbolTypes.Multiplier] = 3, _maxSpecialSymbolCoun)
         },
         winlines: {
@@ -3076,8 +3133,8 @@ System.register("chunks:///_virtual/gameInput.ts", ['./rollupPluginModLoBabelHel
   };
 });
 
-System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData.ts', './gameData.ts', './godFeatureTypes.ts', './reelsData.ts', './randomizer.ts', './specialSymbols.ts', './array.ts'], function (exports) {
-  var cclegacy, CoinTypes, gameData, GodFeatureTypes, godFeatureTypeToId, idToGodFeatureType, reelsData, bonusReelsData, betterRandom, SpecialSymbolTypes, specialSymbolIdToType, specialSymbolTypeToId, godTypeToSpecialSymbolType, shuffle, flatMap;
+System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData.ts', './gameData.ts', './godFeatureTypes.ts', './jackpotTypes.ts', './reelsData.ts', './randomizer.ts', './specialSymbols.ts'], function (exports) {
+  var cclegacy, CoinTypes, gameData, GodFeatureTypes, godFeatureTypeToId, idToGodFeatureType, jackpotTypeToWeight, reelsData, bonusReelsData, Randomizer, createWeightedTable, SpecialSymbolTypes, specialSymbolIdToType, godTypeToSpecialSymbolType, specialSymbolTypeToGodType, specialSymbolTypeToId;
   return {
     setters: [function (module) {
       cclegacy = module.cclegacy;
@@ -3090,39 +3147,40 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
       godFeatureTypeToId = module.godFeatureTypeToId;
       idToGodFeatureType = module.idToGodFeatureType;
     }, function (module) {
+      jackpotTypeToWeight = module.jackpotTypeToWeight;
+    }, function (module) {
       reelsData = module.reelsData;
       bonusReelsData = module.bonusReelsData;
     }, function (module) {
-      betterRandom = module.betterRandom;
+      Randomizer = module.Randomizer;
+      createWeightedTable = module.createWeightedTable;
     }, function (module) {
       SpecialSymbolTypes = module.SpecialSymbolTypes;
       specialSymbolIdToType = module.specialSymbolIdToType;
-      specialSymbolTypeToId = module.specialSymbolTypeToId;
       godTypeToSpecialSymbolType = module.godTypeToSpecialSymbolType;
-    }, function (module) {
-      shuffle = module.shuffle;
-      flatMap = module.flatMap;
+      specialSymbolTypeToGodType = module.specialSymbolTypeToGodType;
+      specialSymbolTypeToId = module.specialSymbolTypeToId;
     }],
     execute: function () {
       exports({
         addGodCoinsToCoinsResult: addGodCoinsToCoinsResult,
         drawChanceOfGodFeatureTrigger: drawChanceOfGodFeatureTrigger,
         drawChanceOfRandomGodFeature: drawChanceOfRandomGodFeature,
-        drawGodFeatureActivation: drawGodFeatureActivation,
-        drawGodFeatureCount: drawGodFeatureCount,
         drawGodsInReels: drawGodsInReels,
+        drawRandomGodFeatureActivation: drawRandomGodFeatureActivation,
         drawRandomGodFeatureAmount: drawRandomGodFeatureAmount,
-        drawSpecialSymbolCount: drawSpecialSymbolCount,
         generateGodReelResult: generateGodReelResult,
         generateGodReelsResult: generateGodReelsResult,
         generateGodResult: generateGodResult,
         generateJackpotCoinsResult: generateJackpotCoinsResult,
         generateJackpotCoinsResultTwo: generateJackpotCoinsResultTwo,
         generateRandomSymbols: generateRandomSymbols,
+        getGodFeatureTypeSymbolsAmount: getGodFeatureTypeSymbolsAmount,
         getGodReelsResult: getGodReelsResult,
-        getSpecialSymbolCountInColumn: getSpecialSymbolCountInColumn
+        getJackpotTypeWeightedList: getJackpotTypeWeightedList,
+        groupOfTen: groupOfTen
       });
-      var _specialSymbolGodFeat;
+      var _randomGodFeatureOnBo, _godFeatureDuringFree;
       cclegacy._RF.push({}, "bb4f1E83lhGIYtA/FVPrOqi", "gameplayCalculations", undefined);
       var chanceOfRandomGodFeaturePct = 10;
       var chanceOfGodFeatureTriggerPct = 1;
@@ -3131,12 +3189,13 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
       var godCoinPct = 50;
       var mainJackpotCoinPct = 8;
       var freeSpinJackpotCoinPct = 2;
+      var randomizer = exports('randomizer', new Randomizer());
       var specialSymbolWildOnBonusHolderHitTable = exports('specialSymbolWildOnBonusHolderHitTable', [{
         value: 0,
-        weight: 50
+        weight: 90
       }, {
         value: 1,
-        weight: 20
+        weight: 30
       }, {
         value: 2,
         weight: 5
@@ -3157,14 +3216,15 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
         value: 3,
         weight: 1
       }]);
-      var specialSymbolGodFeatureOnBonusHolderHitTable = exports('specialSymbolGodFeatureOnBonusHolderHitTable', (_specialSymbolGodFeat = {}, _specialSymbolGodFeat[GodFeatureTypes.Ares] = specialSymbolWildOnBonusHolderHitTable, _specialSymbolGodFeat[GodFeatureTypes.Athena] = specialSymbolMultiplierOnBonusHolderHitTable, _specialSymbolGodFeat));
+      var randomGodFeatureOnBonusHolderHitTable = exports('randomGodFeatureOnBonusHolderHitTable', (_randomGodFeatureOnBo = {}, _randomGodFeatureOnBo[GodFeatureTypes.Ares] = createWeightedTable(specialSymbolWildOnBonusHolderHitTable), _randomGodFeatureOnBo[GodFeatureTypes.Athena] = createWeightedTable(specialSymbolMultiplierOnBonusHolderHitTable), _randomGodFeatureOnBo));
       function generateRandomSymbols(data) {
-        var _data$currentSymbols, _data$specials$length, _data$specials, _specialsInGrid;
+        var _data$currentSymbols, _data$specials$length, _data$specials, _specialsInGrid, _maxSpecialSymbolCoun;
         var currentSymbols = (_data$currentSymbols = data == null ? void 0 : data.currentSymbols) != null ? _data$currentSymbols : Array(reelsData.playFieldDimensions.columns).fill([]);
         var rowsPerColumn = data != null && data.gods ? bonusReelsData.playFieldDimensions.rows : reelsData.playFieldDimensions.rows;
         var columns = data != null && data.gods ? bonusReelsData.playFieldDimensions.columns : reelsData.playFieldDimensions.columns;
         var hasSpecials = ((_data$specials$length = data == null || (_data$specials = data.specials) == null ? void 0 : _data$specials.length) != null ? _data$specials$length : 0) > 0;
         var specialsInGrid = (_specialsInGrid = {}, _specialsInGrid[SpecialSymbolTypes.Wild] = 0, _specialsInGrid[SpecialSymbolTypes.Multiplier] = 0, _specialsInGrid);
+        var maxSpecialSymbolCount = (_maxSpecialSymbolCoun = {}, _maxSpecialSymbolCoun[SpecialSymbolTypes.Wild] = data.pillarCountPerGod ? getGodFeatureTypeSymbolsAmount(GodFeatureTypes.Ares, data.pillarCountPerGod[GodFeatureTypes.Ares]) : 0, _maxSpecialSymbolCoun[SpecialSymbolTypes.Multiplier] = data.pillarCountPerGod ? getGodFeatureTypeSymbolsAmount(GodFeatureTypes.Athena, data.pillarCountPerGod[GodFeatureTypes.Athena]) : 0, _maxSpecialSymbolCoun);
         //Reverse because cocos y axis is inverted
         for (var col = 0; col < columns; col++) {
           var _data$currentSymbols$, _data$currentSymbols2;
@@ -3183,17 +3243,17 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
             if (hasSpecials && row >= startCount && row <= endCount) {
               // Only show specials in the visible part of the reels
               do {
-                value = betterRandom({
+                value = randomizer.betterRandom({
                   gods: data == null ? void 0 : data.gods,
                   specials: data == null ? void 0 : data.specials,
                   cheat: data == null ? void 0 : data.cheat
                 });
-              } while (specialsInGrid[specialSymbolIdToType[value]] && specialsInGrid[specialSymbolIdToType[value]] > gameData.freeSpins.maxSpecialSymbolCount[specialSymbolIdToType[value]] - 1);
+              } while (specialsInGrid[specialSymbolIdToType[value]] && specialsInGrid[specialSymbolIdToType[value]] >= maxSpecialSymbolCount[specialSymbolIdToType[value]]);
               if (specialSymbolIdToType[value]) {
                 specialsInGrid[specialSymbolIdToType[value]]++;
               }
             } else {
-              value = betterRandom({
+              value = randomizer.betterRandom({
                 gods: data == null ? void 0 : data.gods,
                 cheat: data == null ? void 0 : data.cheat
               });
@@ -3206,13 +3266,7 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
         }
         return currentSymbols;
       }
-      function getSpecialSymbolCountInColumn(column, specialType) {
-        var maxSpecialCount = gameData.freeSpins.maxSpecialSymbolCount[specialType];
-        return column.filter(function (item) {
-          return item.value === specialSymbolTypeToId[specialType];
-        }).length >= maxSpecialCount;
-      }
-      function drawGodFeatureActivation(data) {
+      function drawRandomGodFeatureActivation(data) {
         var _result;
         var result = (_result = {}, _result[SpecialSymbolTypes.Wild] = 0, _result[SpecialSymbolTypes.Multiplier] = 0, _result);
         var allGodTypes = Object.values(GodFeatureTypes).map(function (v) {
@@ -3222,14 +3276,10 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
           var _data$godCoinDrawn;
           var specialType = godTypeToSpecialSymbolType[allGodTypes[i]];
           if ((_data$godCoinDrawn = data.godCoinDrawn) != null && _data$godCoinDrawn.includes(allGodTypes[i]) && (drawChanceOfRandomGodFeature() || data.cheat)) {
-            result[specialType] = drawSpecialSymbolCount();
+            result[specialType] = drawRandomGodFeatureAmount(specialSymbolTypeToGodType[specialType]);
           }
         }
         return result;
-      }
-      function drawGodFeatureCount(addCount) {
-        var fiftyFifty = Math.round(Math.random());
-        return addCount * fiftyFifty;
       }
       function drawChanceOfRandomGodFeature() {
         var randomPercentage = Math.floor(Math.random() * 100);
@@ -3239,10 +3289,10 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
         var randomPercentage = Math.floor(Math.random() * 150); // 1 on 150
         return chanceOfGodFeatureTriggerPct > randomPercentage;
       }
-      function drawSpecialSymbolCount() {
-        var list = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
-        var randomCount = Math.floor(Math.random() * list.length);
-        return list[randomCount];
+      function drawRandomGodFeatureAmount(godType) {
+        var table = randomGodFeatureOnBonusHolderHitTable[godType];
+        var randomIndex = Math.floor(Math.random() * table.length);
+        return table[randomIndex];
       }
       function drawGodsInReels(data) {
         var result = [];
@@ -3324,17 +3374,6 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
         }
         return coinsResult;
       }
-      function drawRandomGodFeatureAmount(godType) {
-        var table = specialSymbolGodFeatureOnBonusHolderHitTable[godType];
-        var list = table.map(function (item) {
-          return Array(item.weight).fill(item.value);
-        });
-        var flatList = shuffle(flatMap(list, function (item) {
-          return item;
-        }));
-        var randomIndex = Math.floor(Math.random() * flatList.length);
-        return flatList[randomIndex];
-      }
       function generateJackpotCoinsResult(data) {
         var coinsResult = [];
         if (data.isRespin) {
@@ -3402,20 +3441,20 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
             }
 
             var columnResult = [];
-            var jackpotTypePerColumn = (_data$jackpotTypesPer = data.jackpotTypesPerColumn) == null ? void 0 : _data$jackpotTypesPer[c];
-            for (var r = 0; r < row.total; r++) {
-              var hasJackpotCoin = randomIndices[r] > 0;
-              if (!jackpotTypePerColumn) {
-                console.error('No jackpot types');
-              } else {
-                var _jackpotTypePerColumn;
-                var randomJackpotIndex = Math.floor(Math.random() * ((_jackpotTypePerColumn = jackpotTypePerColumn == null ? void 0 : jackpotTypePerColumn.length) != null ? _jackpotTypePerColumn : 0));
-                var jackpotType = jackpotTypePerColumn[randomJackpotIndex];
+            var jackpotTypesPerColumn = (_data$jackpotTypesPer = data.jackpotTypesPerColumn) == null ? void 0 : _data$jackpotTypesPer[c];
+            if (jackpotTypesPerColumn) {
+              var jackpotTypeWeightedList = getJackpotTypeWeightedList(jackpotTypesPerColumn);
+              for (var r = 0; r < row.total; r++) {
+                var hasJackpotCoin = randomIndices[r] > 0;
+                var randomJackpotIndex = Math.floor(Math.random() * jackpotTypeWeightedList.length);
+                var jackpotType = jackpotTypeWeightedList[randomJackpotIndex];
                 columnResult.push({
                   coinType: hasJackpotCoin ? CoinTypes.Jackpot : undefined,
                   valueType: hasJackpotCoin ? jackpotType : undefined
                 });
               }
+            } else {
+              console.error('No jackpot types');
             }
             coinsResult.push(columnResult);
           },
@@ -3425,6 +3464,19 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
           if (_ret === 0) continue;
         }
         return coinsResult;
+      }
+      function getJackpotTypeWeightedList(includedJackpotTypes) {
+        var keys = Object.keys(jackpotTypeToWeight).map(function (key) {
+          return key;
+        }).filter(function (key) {
+          return includedJackpotTypes.includes(key);
+        });
+        var jackpotList = [];
+        keys.forEach(function (key) {
+          var value = jackpotTypeToWeight[key];
+          jackpotList.push.apply(jackpotList, Array(value).fill(key));
+        });
+        return jackpotList;
       }
       function addGodCoinsToCoinsResult(coinsResult, data) {
         if (coinsResult.length === 0) {
@@ -3520,6 +3572,381 @@ System.register("chunks:///_virtual/gameplayCalculations.ts", ['cc', './coinData
           }
         }
         return result;
+      }
+      var wildDrawTable = exports('wildDrawTable', {
+        10: [{
+          value: 0,
+          weight: 125
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }],
+        20: [{
+          value: 0,
+          weight: 115
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }],
+        30: [{
+          value: 0,
+          weight: 110
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }],
+        // default
+        40: [{
+          value: 0,
+          weight: 100
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }],
+        50: [{
+          value: 0,
+          weight: 85
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }],
+        60: [{
+          value: 0,
+          weight: 75
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }],
+        70: [{
+          value: 0,
+          weight: 70
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }],
+        80: [{
+          value: 0,
+          weight: 65
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }],
+        90: [{
+          value: 0,
+          weight: 50
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }],
+        100: [{
+          value: 0,
+          weight: 50
+        }, {
+          value: 1,
+          weight: 30
+        }, {
+          value: 2,
+          weight: 15
+        }, {
+          value: 3,
+          weight: 10
+        }, {
+          value: 4,
+          weight: 3
+        }, {
+          value: 5,
+          weight: 2
+        }, {
+          value: 6,
+          weight: 1
+        }]
+      });
+      var multiplierDrawTable = exports('multiplierDrawTable', {
+        10: [{
+          value: 0,
+          weight: 60
+        }, {
+          value: 1,
+          weight: 20
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }],
+        20: [{
+          value: 0,
+          weight: 55
+        }, {
+          value: 1,
+          weight: 20
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }],
+        30: [{
+          value: 0,
+          weight: 65
+        }, {
+          value: 1,
+          weight: 45
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }],
+        // default
+        40: [{
+          value: 0,
+          weight: 45
+        }, {
+          value: 1,
+          weight: 20
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }],
+        50: [{
+          value: 0,
+          weight: 40
+        }, {
+          value: 1,
+          weight: 20
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }],
+        60: [{
+          value: 0,
+          weight: 35
+        }, {
+          value: 1,
+          weight: 20
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }],
+        70: [{
+          value: 0,
+          weight: 30
+        }, {
+          value: 1,
+          weight: 20
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }],
+        80: [{
+          value: 0,
+          weight: 25
+        }, {
+          value: 1,
+          weight: 20
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }],
+        90: [{
+          value: 0,
+          weight: 20
+        }, {
+          value: 1,
+          weight: 20
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }],
+        100: [{
+          value: 0,
+          weight: 20
+        }, {
+          value: 1,
+          weight: 20
+        }, {
+          value: 2,
+          weight: 5
+        }, {
+          value: 3,
+          weight: 1
+        }]
+      });
+      var godFeatureDuringFreeSpinsTable = exports('godFeatureDuringFreeSpinsTable', (_godFeatureDuringFree = {}, _godFeatureDuringFree[GodFeatureTypes.Ares] = {
+        createWeightedTable: function createWeightedTable$1(pillarCount) {
+          var rounded = groupOfTen(pillarCount);
+          return createWeightedTable(wildDrawTable[rounded]);
+        }
+      }, _godFeatureDuringFree[GodFeatureTypes.Athena] = {
+        createWeightedTable: function createWeightedTable$1(pillarCount) {
+          var rounded = groupOfTen(pillarCount);
+          return createWeightedTable(multiplierDrawTable[rounded]);
+        }
+      }, _godFeatureDuringFree));
+      function groupOfTen(count) {
+        return Math.floor(count / 10) * 10;
+      }
+      function getGodFeatureTypeSymbolsAmount(godType, pillarCount) {
+        var table = godFeatureDuringFreeSpinsTable[godType].createWeightedTable(pillarCount);
+        var randomIndex = Math.floor(Math.random() * table.length);
+        return table[randomIndex];
       }
       cclegacy._RF.pop();
     }
@@ -3765,6 +4192,13 @@ System.register("chunks:///_virtual/gameplayModel.ts", ['./rollupPluginModLoBabe
         _proto.godFeatureResetHandler = function godFeatureResetHandler() {
           this.specialsFeatureActivated = false;
         };
+        _proto.getCurrentPillarCounts = function getCurrentPillarCounts() {
+          var _this$godFeatureCompo;
+          return this.godFeatureComponent.reduce(function (acc, c) {
+            acc[c.featureType] = c.countValue >= gameData.gods.startPillarCount ? c.countValue : gameData.gods.startPillarCount;
+            return acc;
+          }, (_this$godFeatureCompo = {}, _this$godFeatureCompo[GodFeatureTypes.Ares] = 0, _this$godFeatureCompo[GodFeatureTypes.Athena] = 0, _this$godFeatureCompo));
+        };
         _createClass(GameplayModel, [{
           key: "freeSpinCount",
           get: function get() {
@@ -3939,7 +4373,7 @@ System.register("chunks:///_virtual/gameplayModel.ts", ['./rollupPluginModLoBabe
 });
 
 System.register("chunks:///_virtual/godFeatureComponent.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './eventSignals.ts', './godFeatureTypes.ts', './gameData.ts', './godFeatureModel.ts', './gameplayCalculations.ts', './specialSymbols.ts', './hudModel.ts', './featureStatus.ts', './wait.ts', './roundTypes.ts'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, Node, ParticleSystem2D, Label, Enum, Color, tween, Vec3, Sprite, Component, startRoundSignal, setRoundTypeSignal, godFeatureResetSignal, godFeatureSignal, bonusBuyTestSignal, freeSpinsActivateSignal, GodFeatureTypes, gameData, GodFeatureModel, drawChanceOfGodFeatureTrigger, drawRandomGodFeatureAmount, drawGodFeatureCount, godTypeToSpecialSymbolType, HudModel, FeatureStatus, wait, RoundTypes;
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, Node, ParticleSystem2D, Label, Enum, Color, tween, Vec3, Sprite, Component, startRoundSignal, setRoundTypeSignal, godFeatureResetSignal, godFeatureSignal, bonusBuyTestSignal, freeSpinsActivateSignal, GodFeatureTypes, gameData, GodFeatureModel, drawChanceOfGodFeatureTrigger, godTypeToSpecialSymbolType, HudModel, FeatureStatus, wait, RoundTypes;
   return {
     setters: [function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
@@ -3974,8 +4408,6 @@ System.register("chunks:///_virtual/godFeatureComponent.ts", ['./rollupPluginMod
       GodFeatureModel = module.GodFeatureModel;
     }, function (module) {
       drawChanceOfGodFeatureTrigger = module.drawChanceOfGodFeatureTrigger;
-      drawRandomGodFeatureAmount = module.drawRandomGodFeatureAmount;
-      drawGodFeatureCount = module.drawGodFeatureCount;
     }, function (module) {
       godTypeToSpecialSymbolType = module.godTypeToSpecialSymbolType;
     }, function (module) {
@@ -4092,17 +4524,13 @@ System.register("chunks:///_virtual/godFeatureComponent.ts", ['./rollupPluginMod
           if (args.feature !== this.featureType) {
             return;
           }
+
           //Xavier's implementation
-          var amount = args.addAmount;
-          if (amount === 1) {
-            amount = drawRandomGodFeatureAmount(this.featureType);
-            console.log('Amount drawn for ' + this.featureType + ': ' + amount);
-          }
-          this.countValue += drawGodFeatureCount(amount);
+          this.countValue += args.addAmount;
           if (this.countValue > this.godFeatureModel.maxAmount) {
             this.countValue = this.godFeatureModel.maxAmount;
           }
-          var addAmountPercentage = amount / this.godFeatureModel.maxAmount;
+          var addAmountPercentage = args.addAmount / this.godFeatureModel.maxAmount;
           this.godFeatureModel.amountPercentage = Math.min(this.godFeatureModel.amountPercentage + addAmountPercentage, 1);
           if (this.countValue >= this.godFeatureModel.avarageTriggerCount && !args.bonusBuy) {
             if (this.canTriggerPillar || this.hudModel.isPillarCheat) {
@@ -4735,11 +5163,11 @@ System.register("chunks:///_virtual/hudComponent.ts", ['./rollupPluginModLoBabel
       GameplayModel = module.GameplayModel;
     }],
     execute: function () {
-      var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10;
+      var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _descriptor12;
       cclegacy._RF.push({}, "ab21ehty6tHerJyn3+FwlhT", "hudComponent", undefined);
       var ccclass = _decorator.ccclass,
         property = _decorator.property;
-      var HudComponent = exports('HudComponent', (_dec = ccclass('HudComponent'), _dec2 = property(DropDownMenu), _dec3 = property(Label), _dec4 = property(Label), _dec5 = property(Toggle), _dec6 = property(Toggle), _dec7 = property(Toggle), _dec8 = property(Toggle), _dec9 = property(Toggle), _dec10 = property(Toggle), _dec11 = property(Toggle), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
+      var HudComponent = exports('HudComponent', (_dec = ccclass('HudComponent'), _dec2 = property(DropDownMenu), _dec3 = property(Label), _dec4 = property(Label), _dec5 = property(Toggle), _dec6 = property(Toggle), _dec7 = property(Toggle), _dec8 = property(Toggle), _dec9 = property(Toggle), _dec10 = property(Toggle), _dec11 = property(Toggle), _dec12 = property(Toggle), _dec13 = property(Toggle), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
         _inheritsLoose(HudComponent, _Component);
         function HudComponent() {
           var _this;
@@ -4751,13 +5179,15 @@ System.register("chunks:///_virtual/hudComponent.ts", ['./rollupPluginModLoBabel
           _initializerDefineProperty(_this, "stakeMenu", _descriptor, _assertThisInitialized(_this));
           _initializerDefineProperty(_this, "balanceValue", _descriptor2, _assertThisInitialized(_this));
           _initializerDefineProperty(_this, "wonValue", _descriptor3, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "reelCheatToggle", _descriptor4, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "godCoinCheatToggle", _descriptor5, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "pillarCheatToggle", _descriptor6, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "bonusJackpotToggle", _descriptor7, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "bonusCollectToggle", _descriptor8, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "respinCheatToggle", _descriptor9, _assertThisInitialized(_this));
-          _initializerDefineProperty(_this, "autoplayToggle", _descriptor10, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "easyTumbleToggle", _descriptor4, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "mysteryColumnToggle", _descriptor5, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "godCoinCheatToggle", _descriptor6, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "pillarCheatToggle", _descriptor7, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "randomCheatToggle", _descriptor8, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "bonusJackpotToggle", _descriptor9, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "bonusCollectToggle", _descriptor10, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "respinCheatToggle", _descriptor11, _assertThisInitialized(_this));
+          _initializerDefineProperty(_this, "autoplayToggle", _descriptor12, _assertThisInitialized(_this));
           _this.onRoundStartBind = _this.roundStartHandler.bind(_assertThisInitialized(_this));
           _this.onStakeSelectedBind = _this.stakeSelectedHandler.bind(_assertThisInitialized(_this));
           return _this;
@@ -4767,9 +5197,11 @@ System.register("chunks:///_virtual/hudComponent.ts", ['./rollupPluginModLoBabel
           this.hudModel = this.addComponent(HudModel);
           this.hudModel.balanceLabel = this.balanceValue;
           this.hudModel.wonLabel = this.wonValue;
-          this.hudModel.reelCheatToggle = this.reelCheatToggle;
+          this.hudModel.easyTumbleToggle = this.easyTumbleToggle;
+          this.hudModel.mysteryColumnToggle = this.mysteryColumnToggle;
           this.hudModel.godCoinCheatToggle = this.godCoinCheatToggle;
           this.hudModel.pillarCheatToggle = this.pillarCheatToggle;
+          this.hudModel.randomCheatToggle = this.randomCheatToggle;
           this.hudModel.bonusCollectToggle = this.bonusCollectToggle;
           this.hudModel.bonusJackpotToggle = this.bonusJackpotToggle;
           this.hudModel.respinCheatToggle = this.respinCheatToggle;
@@ -4828,49 +5260,63 @@ System.register("chunks:///_virtual/hudComponent.ts", ['./rollupPluginModLoBabel
         initializer: function initializer() {
           return null;
         }
-      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "reelCheatToggle", [_dec5], {
+      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "easyTumbleToggle", [_dec5], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return null;
         }
-      }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "godCoinCheatToggle", [_dec6], {
+      }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "mysteryColumnToggle", [_dec6], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return null;
         }
-      }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "pillarCheatToggle", [_dec7], {
+      }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "godCoinCheatToggle", [_dec7], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return null;
         }
-      }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "bonusJackpotToggle", [_dec8], {
+      }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "pillarCheatToggle", [_dec8], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return null;
         }
-      }), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, "bonusCollectToggle", [_dec9], {
+      }), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, "randomCheatToggle", [_dec9], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return null;
         }
-      }), _descriptor9 = _applyDecoratedDescriptor(_class2.prototype, "respinCheatToggle", [_dec10], {
+      }), _descriptor9 = _applyDecoratedDescriptor(_class2.prototype, "bonusJackpotToggle", [_dec10], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function initializer() {
           return null;
         }
-      }), _descriptor10 = _applyDecoratedDescriptor(_class2.prototype, "autoplayToggle", [_dec11], {
+      }), _descriptor10 = _applyDecoratedDescriptor(_class2.prototype, "bonusCollectToggle", [_dec11], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function initializer() {
+          return null;
+        }
+      }), _descriptor11 = _applyDecoratedDescriptor(_class2.prototype, "respinCheatToggle", [_dec12], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function initializer() {
+          return null;
+        }
+      }), _descriptor12 = _applyDecoratedDescriptor(_class2.prototype, "autoplayToggle", [_dec13], {
         configurable: true,
         enumerable: true,
         writable: true,
@@ -4918,9 +5364,11 @@ System.register("chunks:///_virtual/hudModel.ts", ['./rollupPluginModLoBabelHelp
           _this.gameplayModel = null;
           _this.balanceLabel = void 0;
           _this.wonLabel = void 0;
-          _this.reelCheatToggle = void 0;
+          _this.easyTumbleToggle = void 0;
+          _this.mysteryColumnToggle = void 0;
           _this.godCoinCheatToggle = void 0;
           _this.pillarCheatToggle = void 0;
+          _this.randomCheatToggle = void 0;
           _this.bonusCollectToggle = void 0;
           _this.bonusJackpotToggle = void 0;
           _this.respinCheatToggle = void 0;
@@ -4988,10 +5436,16 @@ System.register("chunks:///_virtual/hudModel.ts", ['./rollupPluginModLoBabelHelp
           this.won = amount;
         };
         _createClass(HudModel, [{
-          key: "isReelCheat",
+          key: "isEasyTumbleCheat",
           get: function get() {
-            var _this$reelCheatToggle, _this$reelCheatToggle2;
-            return (_this$reelCheatToggle = (_this$reelCheatToggle2 = this.reelCheatToggle) == null ? void 0 : _this$reelCheatToggle2.isChecked) != null ? _this$reelCheatToggle : false;
+            var _this$easyTumbleToggl, _this$easyTumbleToggl2;
+            return (_this$easyTumbleToggl = (_this$easyTumbleToggl2 = this.easyTumbleToggle) == null ? void 0 : _this$easyTumbleToggl2.isChecked) != null ? _this$easyTumbleToggl : false;
+          }
+        }, {
+          key: "isMysteryColumnCheat",
+          get: function get() {
+            var _this$mysteryColumnTo, _this$mysteryColumnTo2;
+            return (_this$mysteryColumnTo = (_this$mysteryColumnTo2 = this.mysteryColumnToggle) == null ? void 0 : _this$mysteryColumnTo2.isChecked) != null ? _this$mysteryColumnTo : false;
           }
         }, {
           key: "isGodCoinCheat",
@@ -5004,6 +5458,12 @@ System.register("chunks:///_virtual/hudModel.ts", ['./rollupPluginModLoBabelHelp
           get: function get() {
             var _this$pillarCheatTogg, _this$pillarCheatTogg2;
             return (_this$pillarCheatTogg = (_this$pillarCheatTogg2 = this.pillarCheatToggle) == null ? void 0 : _this$pillarCheatTogg2.isChecked) != null ? _this$pillarCheatTogg : false;
+          }
+        }, {
+          key: "isRandomCheat",
+          get: function get() {
+            var _this$randomCheatTogg, _this$randomCheatTogg2;
+            return (_this$randomCheatTogg = (_this$randomCheatTogg2 = this.randomCheatToggle) == null ? void 0 : _this$randomCheatTogg2.isChecked) != null ? _this$randomCheatTogg : false;
           }
         }, {
           key: "isBonusCollectCheat",
@@ -5083,8 +5543,8 @@ System.register("chunks:///_virtual/hudModel.ts", ['./rollupPluginModLoBabelHelp
   };
 });
 
-System.register("chunks:///_virtual/jackpotComponent.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './eventSignals.ts', './jackpotTypes.ts', './jackpotModel.ts', './coinData.ts', './hudModel.ts', './roundTypes.ts', './bonusTypes.ts', './commonAnimations.ts'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, Node, Enum, RichText, Toggle, CCFloat, Sprite, Color, Component, moveCoinCompleteSignal, setRoundTypeSignal, bonusActivateItemSignal, freeSpinsToggleJackpotSignal, stakeChangedSignal, JackpotTypes, JackpotTriggerTypes, jackpotTypeToTriggerType, JackpotModel, CoinTypes, HudModel, RoundTypes, BonusItemTypes, scaleFadeAnimation;
+System.register("chunks:///_virtual/jackpotComponent.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './eventSignals.ts', './jackpotTypes.ts', './jackpotModel.ts', './coinData.ts', './hudModel.ts', './roundTypes.ts', './bonusTypes.ts', './commonAnimations.ts', './randomizer.ts'], function (exports) {
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, _createClass, cclegacy, _decorator, Node, Enum, RichText, Toggle, CCFloat, Sprite, Color, Component, moveCoinCompleteSignal, setRoundTypeSignal, bonusActivateItemSignal, freeSpinsToggleJackpotSignal, stakeChangedSignal, JackpotTypes, JackpotTriggerTypes, jackpotTypeToTriggerType, JackpotModel, CoinTypes, HudModel, RoundTypes, BonusItemTypes, scaleFadeAnimation, createWeightedArray;
   return {
     setters: [function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
@@ -5125,6 +5585,8 @@ System.register("chunks:///_virtual/jackpotComponent.ts", ['./rollupPluginModLoB
       BonusItemTypes = module.BonusItemTypes;
     }, function (module) {
       scaleFadeAnimation = module.scaleFadeAnimation;
+    }, function (module) {
+      createWeightedArray = module.createWeightedArray;
     }],
     execute: function () {
       var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
@@ -5133,7 +5595,12 @@ System.register("chunks:///_virtual/jackpotComponent.ts", ['./rollupPluginModLoB
         property = _decorator.property;
       var JackpotComponent = exports('JackpotComponent', (_dec = ccclass('JackpotComponent'), _dec2 = property(Node), _dec3 = property({
         type: Enum(JackpotTypes)
-      }), _dec4 = property(RichText), _dec5 = property([Toggle]), _dec6 = property(CCFloat), _dec7 = property(CCFloat), _dec8 = property(CCFloat), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
+      }), _dec4 = property(RichText), _dec5 = property([Toggle]), _dec6 = property(CCFloat), _dec7 = property(CCFloat), _dec8 = property({
+        type: CCFloat,
+        visible: function visible() {
+          return this.jackpotTriggerType === JackpotTriggerTypes.Progress;
+        }
+      }), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
         _inheritsLoose(JackpotComponent, _Component);
         function JackpotComponent() {
           var _this;
@@ -5150,6 +5617,15 @@ System.register("chunks:///_virtual/jackpotComponent.ts", ['./rollupPluginModLoB
           _initializerDefineProperty(_this, "jackpotStartValue", _descriptor5, _assertThisInitialized(_this));
           _initializerDefineProperty(_this, "jackpotMaxValue", _descriptor6, _assertThisInitialized(_this));
           _initializerDefineProperty(_this, "contributionMultiplier", _descriptor7, _assertThisInitialized(_this));
+          _this.drawCashGrabValueWeights = {
+            0: 350,
+            1: 15,
+            2: 8,
+            3: 4,
+            4: 2,
+            5: 1
+          };
+          _this.cashGrabContributionList = [];
           _this.isPayedOut = false;
           _this.roundType = RoundTypes.Normal;
           _this.setRoundTypeBind = _this.setRoundTypeHandler.bind(_assertThisInitialized(_this));
@@ -5168,11 +5644,15 @@ System.register("chunks:///_virtual/jackpotComponent.ts", ['./rollupPluginModLoB
           this.jackpotModel.jackpotLabel = this.jackpotValueLabel;
           this.jackpotModel.jackpotBonusToggles = this.jackpotBonusToggles;
           this.jackpotModel.contributionMultiplier = this.contributionMultiplier;
+          this.createCashGrabContributionList();
           moveCoinCompleteSignal.addListener(this.moveCoinCompleteBind);
           setRoundTypeSignal.addListener(this.setRoundTypeBind);
           bonusActivateItemSignal.addListener(this.bonusActivateItemBind);
           freeSpinsToggleJackpotSignal.addListener(this.freeSpinsToggleJackpotBind);
           stakeChangedSignal.addListener(this.stakeChangedBind);
+        };
+        _proto.createCashGrabContributionList = function createCashGrabContributionList() {
+          this.cashGrabContributionList = createWeightedArray(this.drawCashGrabValueWeights);
         };
         _proto.start = function start() {
           this.hudModel = this.node.scene.getComponentInChildren(HudModel);
@@ -5208,6 +5688,10 @@ System.register("chunks:///_virtual/jackpotComponent.ts", ['./rollupPluginModLoB
           this.jackpotModel.jackpotValue = this.jackpotModel.jackpotMinValue;
         };
         _proto.updateJackpot = function updateJackpot(stake) {
+          var addValue = this.contributionMultiplier;
+          if (this.jackpotTriggerType === JackpotTriggerTypes.CashGrab) {
+            addValue = this.cashGrabContributionList[Math.floor(Math.random() * this.cashGrabContributionList.length)];
+          }
           this.jackpotModel.jackpotValue += stake * this.contributionMultiplier;
           this.jackpotModel.jackpotValue = Math.min(this.jackpotModel.jackpotValue, this.jackpotModel.jackpotMaxValue);
         };
@@ -5325,7 +5809,7 @@ System.register("chunks:///_virtual/jackpotComponent.ts", ['./rollupPluginModLoB
         enumerable: true,
         writable: true,
         initializer: function initializer() {
-          return undefined;
+          return null;
         }
       }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "jackpotValueLabel", [_dec4], {
         configurable: true,
@@ -5360,7 +5844,7 @@ System.register("chunks:///_virtual/jackpotComponent.ts", ['./rollupPluginModLoB
         enumerable: true,
         writable: true,
         initializer: function initializer() {
-          return 1.5;
+          return 1;
         }
       })), _class2)) || _class));
       cclegacy._RF.pop();
@@ -5477,7 +5961,7 @@ System.register("chunks:///_virtual/jackpotTypes.ts", ['cc', './godFeatureTypes.
       GodFeatureTypes = module.GodFeatureTypes;
     }],
     execute: function () {
-      var _godToJackpotType, _jackpotTypeToTrigger;
+      var _godToJackpotType, _jackpotTypeToTrigger, _jackpotTypeToWeight;
       cclegacy._RF.push({}, "5b5cbRhZZtKYKp5ZSo334le", "jackpotTypes", undefined);
       var JackpotTypes = exports('JackpotTypes', /*#__PURE__*/function (JackpotTypes) {
         JackpotTypes["Unreal"] = "unreal";
@@ -5509,15 +5993,16 @@ System.register("chunks:///_virtual/jackpotTypes.ts", ['cc', './godFeatureTypes.
       });
       var godToJackpotType = exports('godToJackpotType', (_godToJackpotType = {}, _godToJackpotType[GodFeatureTypes.Athena] = JackpotTypes.Athena, _godToJackpotType[GodFeatureTypes.Ares] = JackpotTypes.Ares, _godToJackpotType));
       var jackpotTypeToTriggerType = exports('jackpotTypeToTriggerType', (_jackpotTypeToTrigger = {}, _jackpotTypeToTrigger[JackpotTypes.Unreal] = JackpotTriggerTypes.CashGrab, _jackpotTypeToTrigger[JackpotTypes.Divine] = JackpotTriggerTypes.CashGrab, _jackpotTypeToTrigger[JackpotTypes.Heroic] = JackpotTriggerTypes.CashGrab, _jackpotTypeToTrigger[JackpotTypes.Warlord] = JackpotTriggerTypes.CashGrab, _jackpotTypeToTrigger[JackpotTypes.Mythic] = JackpotTriggerTypes.CashGrab, _jackpotTypeToTrigger[JackpotTypes.Legendary] = JackpotTriggerTypes.CashGrab, _jackpotTypeToTrigger[JackpotTypes.Athena] = JackpotTriggerTypes.Progress, _jackpotTypeToTrigger[JackpotTypes.Ares] = JackpotTriggerTypes.Progress, _jackpotTypeToTrigger[JackpotTypes.Godlike] = JackpotTriggerTypes.Progress, _jackpotTypeToTrigger));
+      var jackpotTypeToWeight = exports('jackpotTypeToWeight', (_jackpotTypeToWeight = {}, _jackpotTypeToWeight[JackpotTypes.Unreal] = 10, _jackpotTypeToWeight[JackpotTypes.Divine] = 10, _jackpotTypeToWeight[JackpotTypes.Heroic] = 40, _jackpotTypeToWeight[JackpotTypes.Warlord] = 40, _jackpotTypeToWeight[JackpotTypes.Mythic] = 50, _jackpotTypeToWeight[JackpotTypes.Legendary] = 50, _jackpotTypeToWeight[JackpotTypes.Athena] = 1, _jackpotTypeToWeight[JackpotTypes.Ares] = 1, _jackpotTypeToWeight[JackpotTypes.Godlike] = 1, _jackpotTypeToWeight));
       var globalJackpotTypes = exports('globalJackpotTypes', [JackpotTypes.Godlike]);
       cclegacy._RF.pop();
     }
   };
 });
 
-System.register("chunks:///_virtual/main", ['./DropdownMenuCreator.ts', './audioComponent.ts', './bonusItemModel.ts', './bonusModel.ts', './bonusRollComponent.ts', './coinComponent.ts', './coinData.ts', './godFeatureComponent.ts', './godFeatureDrop.ts', './godFeatureModel.ts', './jackpotComponent.ts', './jackpotModel.ts', './moveCoins.ts', './game.ts', './gameInput.ts', './gameplayCalculations.ts', './gameplayModel.ts', './playfieldComponent.ts', './playfieldModel.ts', './playfieldUpdate.ts', './randomizer.ts', './reelAnimations.ts', './reelArgs.ts', './reelComponent.ts', './reelConfig.ts', './reelContext.ts', './reelModel.ts', './reelService.ts', './reelStatus.ts', './resize.ts', './responsive.ts', './godSymbolCompont.ts', './symbolModel.ts', './symbolNode.ts', './symbolPosition.ts', './bonusSideType.ts', './bonusTypes.ts', './featureStatus.ts', './gameClasses.ts', './gameData.ts', './godFeatureTypes.ts', './jackpotTypes.ts', './reelsData.ts', './roundTypes.ts', './specialSymbols.ts', './symbolAnimationData.ts', './symbols.ts', './tumbleSymbolData.ts', './winData.ts', './backgroundComponent.ts', './bonusBuyComponent.ts', './dropDownMenu.ts', './hudComponent.ts', './hudModel.ts', './menuButton.ts', './playButton.ts', './toggleUpdater.ts', './SpAnimator.ts', './array.ts', './arrayUtils.ts', './commonAnimations.ts', './curveTween.ts', './eventSignals.ts', './gridMask.ts', './maskMover.ts', './resolvablePromise.ts', './signal.ts', './tumbleAlpha.ts', './uniqueId.ts', './view.ts', './wait.ts'], function () {
+System.register("chunks:///_virtual/main", ['./DropdownMenuCreator.ts', './audioComponent.ts', './backgroundAudioComponent.ts', './bonusItemModel.ts', './bonusModel.ts', './bonusRollComponent.ts', './coinComponent.ts', './coinData.ts', './godFeatureComponent.ts', './godFeatureDrop.ts', './godFeatureModel.ts', './jackpotComponent.ts', './jackpotModel.ts', './moveCoins.ts', './game.ts', './gameInput.ts', './gameplayCalculations.ts', './gameplayModel.ts', './playfieldComponent.ts', './playfieldModel.ts', './playfieldUpdate.ts', './randomizer.ts', './reelAnimations.ts', './reelArgs.ts', './reelComponent.ts', './reelConfig.ts', './reelContext.ts', './reelModel.ts', './reelService.ts', './reelStatus.ts', './resize.ts', './responsive.ts', './godSymbolCompont.ts', './symbolModel.ts', './symbolNode.ts', './symbolPosition.ts', './bonusSideType.ts', './bonusTypes.ts', './featureStatus.ts', './gameClasses.ts', './gameData.ts', './godFeatureTypes.ts', './jackpotTypes.ts', './reelsData.ts', './roundTypes.ts', './specialSymbols.ts', './symbolAnimationData.ts', './symbols.ts', './tumbleSymbolData.ts', './winData.ts', './backgroundComponent.ts', './bonusBuyComponent.ts', './dropDownMenu.ts', './hudComponent.ts', './hudModel.ts', './menuButton.ts', './playButton.ts', './toggleUpdater.ts', './SpAnimator.ts', './array.ts', './arrayUtils.ts', './commonAnimations.ts', './curveTween.ts', './eventSignals.ts', './gridMask.ts', './maskMover.ts', './resolvablePromise.ts', './signal.ts', './tumbleAlpha.ts', './uniqueId.ts', './view.ts', './wait.ts'], function () {
   return {
-    setters: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+    setters: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     execute: function () {}
   };
 });
@@ -6529,7 +7014,7 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
           }
           return setGodReelResult;
         }();
-        _proto.updateReelsResultWithGodFeature = function updateReelsResultWithGodFeature(activatedGodFeatureTypes, hasAnySpecialActivated) {
+        _proto.updateReelsResultWithGodFeature = function updateReelsResultWithGodFeature(activatedGodFeatureTypes) {
           var _this3 = this;
           var symbols = this.reels.map(function (reel) {
             return structuredClone(reel.reelModel.result);
@@ -6547,6 +7032,7 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
             symbols: symbols,
             comesFromMediator: true
           });
+          return symbols;
         }
 
         // Give special symbol to any reel
@@ -6576,6 +7062,9 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
               }
             });
           });
+          if (data.length === 0) {
+            return;
+          }
           var randomSymbol = data[Math.floor(Math.random() * data.length)];
           var symbol = structuredClone(symbols[randomSymbol.columnId][randomSymbol.rowId]);
           symbol.meta = {
@@ -6739,9 +7228,9 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
           for (var r = 0; r < symbols.length; r++) {
             var symbol = symbols[r];
             if (symbol.length >= reelsData.playFieldDimensions.rows[r].visible) {
-              var _isRespinReels$r;
+              var _coinsResult$r, _isRespinReels$r;
               this.reels[r].reelModel.result = symbol;
-              this.reels[r].reelModel.resultCoins = coinsResult[r];
+              this.reels[r].reelModel.resultCoins = (_coinsResult$r = coinsResult == null ? void 0 : coinsResult[r]) != null ? _coinsResult$r : this.reels[r].reelModel.resultCoins;
               this.reels[r].reelModel.isRespin = (_isRespinReels$r = isRespinReels == null ? void 0 : isRespinReels[r]) != null ? _isRespinReels$r : false;
             }
           }
@@ -7065,8 +7554,8 @@ System.register("chunks:///_virtual/playfieldModel.ts", ['./rollupPluginModLoBab
   };
 });
 
-System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './randomizer.ts', './eventSignals.ts', './wait.ts', './reelsData.ts', './gameData.ts', './gameplayCalculations.ts', './coinData.ts', './godFeatureTypes.ts', './jackpotTypes.ts', './roundTypes.ts', './specialSymbols.ts', './bonusSideType.ts', './moveCoins.ts', './resolvablePromise.ts', './array.ts'], function (exports) {
-  var _asyncToGenerator, _regeneratorRuntime, _createForOfIteratorHelperLoose, cclegacy, Vec3, betterRandom, godFeatureResetSignal, setRoundTypeSignal, spinReelSignal, startRoundSignal, setReelsUpdateSignal, setReelsSignal, showReelResultSignal, freeSpinsActivateAnimationSignal, animateGodSymbolSignal, createWinningsSignal, increaseTumbleCountSignal, tumbleSymbolsSignal, popSymbolsSignal, respinGodsSignal, respinTriggerSignal, bonusResetRollsSignal, bonusStopRollsSignal, bonusStartRollsSignal, wait, reelsData, bonusReelsData, gameData, generateRandomSymbols, drawGodsInReels, generateJackpotCoinsResultTwo, addGodCoinsToCoinsResult, getGodReelsResult, generateGodReelsResult, drawGodFeatureActivation, CoinTypes, GodFeatureTypes, godFeatureTypeToId, godToJackpotType, RoundTypes, specialSymbolTypeToGodType, specialSymbolTypeToId, SpecialSymbolTypes, BonusSideType, moveJackpotCoins, moveFeatureCoins, ResolvablePromise, shuffle, flatMap;
+System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './eventSignals.ts', './wait.ts', './reelsData.ts', './gameData.ts', './gameplayCalculations.ts', './coinData.ts', './godFeatureTypes.ts', './jackpotTypes.ts', './roundTypes.ts', './specialSymbols.ts', './bonusSideType.ts', './moveCoins.ts', './resolvablePromise.ts', './array.ts'], function (exports) {
+  var _asyncToGenerator, _regeneratorRuntime, _createForOfIteratorHelperLoose, cclegacy, Vec3, godFeatureResetSignal, setRoundTypeSignal, spinReelSignal, startRoundSignal, setReelsUpdateSignal, setReelsSignal, showReelResultSignal, freeSpinsActivateAnimationSignal, animateGodSymbolSignal, createWinningsSignal, increaseTumbleCountSignal, tumbleSymbolsSignal, popSymbolsSignal, respinGodsSignal, respinTriggerSignal, bonusResetRollsSignal, bonusStopRollsSignal, bonusStartRollsSignal, wait, reelsData, bonusReelsData, gameData, generateRandomSymbols, drawGodsInReels, generateJackpotCoinsResultTwo, addGodCoinsToCoinsResult, getGodReelsResult, generateGodReelsResult, drawRandomGodFeatureActivation, randomizer, CoinTypes, GodFeatureTypes, godFeatureTypeToId, godToJackpotType, RoundTypes, specialSymbolTypeToGodType, specialSymbolTypeToId, SpecialSymbolTypes, BonusSideType, moveJackpotCoins, moveFeatureCoins, ResolvablePromise, shuffle, flatMap;
   return {
     setters: [function (module) {
       _asyncToGenerator = module.asyncToGenerator;
@@ -7075,8 +7564,6 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
     }, function (module) {
       cclegacy = module.cclegacy;
       Vec3 = module.Vec3;
-    }, function (module) {
-      betterRandom = module.betterRandom;
     }, function (module) {
       godFeatureResetSignal = module.godFeatureResetSignal;
       setRoundTypeSignal = module.setRoundTypeSignal;
@@ -7110,7 +7597,8 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
       addGodCoinsToCoinsResult = module.addGodCoinsToCoinsResult;
       getGodReelsResult = module.getGodReelsResult;
       generateGodReelsResult = module.generateGodReelsResult;
-      drawGodFeatureActivation = module.drawGodFeatureActivation;
+      drawRandomGodFeatureActivation = module.drawRandomGodFeatureActivation;
+      randomizer = module.randomizer;
     }, function (module) {
       CoinTypes = module.CoinTypes;
     }, function (module) {
@@ -7178,7 +7666,7 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
                 return animateCoins(symbols, coinsResult, models);
               case 15:
                 _context.next = 17;
-                return handleSpecials(models);
+                return handleRandomSpecials(models);
               case 17:
                 // Tumble symbols
                 tumbleData = getTumbleSymbolData(models.playfield.totalResults, reverse, models);
@@ -7399,13 +7887,16 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
         return _spinReels.apply(this, arguments);
       }
       function drawEndResults(models, options) {
+        var pillarCountPerGod = models.gameplay.getCurrentPillarCounts();
         var symbolsData = options != null && options.isRespin ? {
           currentSymbols: models.playfield.totalResults,
           includedColumns: options == null ? void 0 : options.canSpinPerColumn,
-          hasGodInReels: options == null ? void 0 : options.hasGodInReels
+          hasGodInReels: options == null ? void 0 : options.hasGodInReels,
+          pillarCountPerGod: pillarCountPerGod
         } : {
           specials: models.gameplay.activatedSpecialsList,
-          cheat: models.hud.isReelCheat
+          cheat: models.hud.isEasyTumbleCheat,
+          pillarCountPerGod: pillarCountPerGod
         };
         var currentSymbols = generateRandomSymbols(symbolsData);
         console.log("drawEndResults - " + (options != null && options.isRespin ? 'isRespin' : 'isNormal') + " | symbols", structuredClone(currentSymbols));
@@ -7661,7 +8152,7 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
           columnCount: models.playfield.godReels.length,
           excludeColumnIndices: [3],
           isEndResult: true,
-          cheat: models.hud.isReelCheat,
+          cheat: models.hud.isMysteryColumnCheat,
           isRespin: options == null ? void 0 : options.isRespin,
           useGodReels: options == null ? void 0 : options.useGodReels
         });
@@ -7777,12 +8268,12 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
         }));
         return _animateCoins.apply(this, arguments);
       }
-      function handleSpecials(_x12) {
-        return _handleSpecials.apply(this, arguments);
+      function handleRandomSpecials(_x12) {
+        return _handleRandomSpecials.apply(this, arguments);
       }
-      function _handleSpecials() {
-        _handleSpecials = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(models) {
-          var godsDrawn, activatedSpecialTypes, hasAnySpecialActivated;
+      function _handleRandomSpecials() {
+        _handleRandomSpecials = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(models) {
+          var godsDrawn, activatedSpecialTypes, hasAnySpecialActivated, symbolsWithGods;
           return _regeneratorRuntime().wrap(function _callee8$(_context8) {
             while (1) switch (_context8.prev = _context8.next) {
               case 0:
@@ -7794,33 +8285,34 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
               case 2:
                 //Update reels with random god feature from god pillar pots if coins were won
                 godsDrawn = models.gameplay.hasAnySpecialActivated ? [] : models.playfield.godCoinDrawn;
-                console.log('handleSpecials | godsDrawn', godsDrawn);
-                activatedSpecialTypes = drawGodFeatureActivation({
+                console.log('handleRandomSpecials | godsDrawn', godsDrawn);
+                activatedSpecialTypes = drawRandomGodFeatureActivation({
                   godCoinDrawn: godsDrawn,
                   activatedSpecialFreeSpins: models.gameplay.activatedSpecialFreeSpins,
                   activatedSpecialCount: models.gameplay.activatedSpecialCount,
                   roundType: models.gameplay.roundType,
-                  cheat: models.hud.isPillarCheat
+                  cheat: models.hud.isRandomCheat
                 });
-                console.log('handleSpecials | activatedSpecialTypes', activatedSpecialTypes);
+                console.log('handleRandomSpecials | activatedSpecialTypes', activatedSpecialTypes);
                 hasAnySpecialActivated = Object.values(activatedSpecialTypes).some(function (value) {
                   return value > 0;
                 });
-                console.log('handleSpecials | hasAnySpecialActivated', hasAnySpecialActivated);
+                console.log('handlehandleRandomSpecialsSpecials | hasAnySpecialActivated', hasAnySpecialActivated);
                 if (!hasAnySpecialActivated) {
-                  _context8.next = 12;
+                  _context8.next = 13;
                   break;
                 }
-                models.playfield.updateReelsResultWithGodFeature(activatedSpecialTypes, models.gameplay.hasAnySpecialActivated);
-                _context8.next = 12;
+                symbolsWithGods = models.playfield.updateReelsResultWithGodFeature(activatedSpecialTypes);
+                models.playfield.setSymbols(symbolsWithGods);
+                _context8.next = 13;
                 return wait(1000);
-              case 12:
+              case 13:
               case "end":
                 return _context8.stop();
             }
           }, _callee8);
         }));
-        return _handleSpecials.apply(this, arguments);
+        return _handleRandomSpecials.apply(this, arguments);
       }
       function handleSymbolTumbles(_x13, _x14, _x15, _x16) {
         return _handleSymbolTumbles.apply(this, arguments);
@@ -7935,7 +8427,7 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
         var tumbleData = [];
         var winningSymbols = getWinningSymbols(symbols, gameData.winlines.minimumCount);
         var normalSymbolsCount = winningSymbols.filter(function (symbolValue) {
-          return symbolValue < specialSymbolTypeToId[SpecialSymbolTypes.Wild] && symbolValue < specialSymbolTypeToId[SpecialSymbolTypes.Multiplier];
+          return symbolValue < specialSymbolTypeToId[SpecialSymbolTypes.Wild];
         });
         if (winningSymbols.length === 0 || normalSymbolsCount.length === 0) {
           if (options != null && options.isRespinPop) {
@@ -7984,8 +8476,8 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
           columnData.newTumblePos = computeNewTumbleTargets(reelModel, columnData.removedIndices, reverse);
           if (columnData.removedIndices.length > 0) {
             columnData.newValues = columnData.removedIndices.map(function () {
-              return betterRandom({
-                cheat: models.hud.isReelCheat
+              return randomizer.betterRandom({
+                cheat: models.hud.isEasyTumbleCheat
               });
             });
             var filtered = [];
@@ -8380,33 +8872,89 @@ System.register("chunks:///_virtual/playfieldUpdate.ts", ['./rollupPluginModLoBa
   };
 });
 
-System.register("chunks:///_virtual/randomizer.ts", ['cc', './specialSymbols.ts'], function (exports) {
-  var cclegacy, SpecialSymbolTypes;
+System.register("chunks:///_virtual/randomizer.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './specialSymbols.ts', './array.ts'], function (exports) {
+  var _createForOfIteratorHelperLoose, cclegacy, SpecialSymbolTypes, shuffle;
   return {
     setters: [function (module) {
+      _createForOfIteratorHelperLoose = module.createForOfIteratorHelperLoose;
+    }, function (module) {
       cclegacy = module.cclegacy;
     }, function (module) {
       SpecialSymbolTypes = module.SpecialSymbolTypes;
+    }, function (module) {
+      shuffle = module.shuffle;
     }],
     execute: function () {
-      exports('betterRandom', betterRandom);
+      exports({
+        createWeightedArray: createWeightedArray,
+        createWeightedTable: createWeightedTable
+      });
       cclegacy._RF.push({}, "43013uUXbVIAbMwkpPqNbOx", "randomizer", undefined);
-      var logicValues = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9];
+      var symbolStartingWeights = {
+        1: 13,
+        2: 12,
+        3: 11,
+        4: 8,
+        5: 7,
+        6: 6,
+        7: 5,
+        8: 5,
+        9: 4
+      };
+      var symbolStartingWeightsCheat = {
+        1: 13,
+        2: 12,
+        3: 11,
+        4: 8,
+        5: 7
+      };
       var aresValues = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
       var athenaValues = [11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11];
-      var cheatValues = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
-      function betterRandom(data) {
-        var _data$specials, _data$specials2;
-        var list = data.cheat ? cheatValues : logicValues;
-        if ((_data$specials = data.specials) != null && _data$specials.includes(SpecialSymbolTypes.Wild)) {
-          list = list.concat(aresValues);
+      function createWeightedArray(weights) {
+        var result = [];
+        for (var _i = 0, _arr = Object.entries(weights); _i < _arr.length; _i++) {
+          var _arr$_i = _arr[_i],
+            symbol = _arr$_i[0],
+            weight = _arr$_i[1];
+          for (var i = 0; i < weight; i++) {
+            result.push(symbol);
+          }
         }
-        if ((_data$specials2 = data.specials) != null && _data$specials2.includes(SpecialSymbolTypes.Multiplier)) {
-          list = list.concat(athenaValues);
-        }
-        var index = Math.floor(Math.random() * list.length);
-        return data.gods ? 0 : list[index];
+        return shuffle(result);
       }
+      function createWeightedTable(weights) {
+        var result = [];
+        for (var _iterator = _createForOfIteratorHelperLoose(weights), _step; !(_step = _iterator()).done;) {
+          var entry = _step.value;
+          var symbolNum = entry.value;
+          for (var i = 0; i < entry.weight; i++) {
+            result.push(symbolNum);
+          }
+        }
+        return shuffle(result);
+      }
+      var Randomizer = exports('Randomizer', /*#__PURE__*/function () {
+        function Randomizer() {
+          this.logicList = void 0;
+          this.cheatList = void 0;
+          this.logicList = createWeightedArray(symbolStartingWeights);
+          this.cheatList = createWeightedArray(symbolStartingWeightsCheat);
+        }
+        var _proto = Randomizer.prototype;
+        _proto.betterRandom = function betterRandom(data) {
+          var _data$specials, _data$specials2;
+          var list = structuredClone(data.cheat ? this.cheatList : this.logicList);
+          if ((_data$specials = data.specials) != null && _data$specials.includes(SpecialSymbolTypes.Wild)) {
+            list = list.concat(aresValues);
+          }
+          if ((_data$specials2 = data.specials) != null && _data$specials2.includes(SpecialSymbolTypes.Multiplier)) {
+            list = list.concat(athenaValues);
+          }
+          var index = Math.floor(Math.random() * list.length);
+          return data.gods ? 0 : list[index];
+        };
+        return Randomizer;
+      }());
       cclegacy._RF.pop();
     }
   };
@@ -8609,8 +9157,8 @@ System.register("chunks:///_virtual/reelArgs.ts", ['cc'], function () {
   };
 });
 
-System.register("chunks:///_virtual/reelComponent.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './symbolNode.ts', './reelStatus.ts', './randomizer.ts', './coinData.ts', './jackpotTypes.ts', './roundTypes.ts', './reelsData.ts'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, cclegacy, _decorator, CCFloat, tween, Vec3, Component, SymbolNode, ReelStatus, betterRandom, CoinTypes, JackpotTypes, jackpotTypeToTriggerType, JackpotTriggerTypes, RoundTypes, reelsData;
+System.register("chunks:///_virtual/reelComponent.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc', './symbolNode.ts', './reelStatus.ts', './coinData.ts', './jackpotTypes.ts', './roundTypes.ts', './reelsData.ts', './gameplayCalculations.ts'], function (exports) {
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, cclegacy, _decorator, CCFloat, tween, Vec3, Component, SymbolNode, ReelStatus, CoinTypes, JackpotTypes, jackpotTypeToTriggerType, JackpotTriggerTypes, RoundTypes, reelsData, randomizer;
   return {
     setters: [function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
@@ -8629,8 +9177,6 @@ System.register("chunks:///_virtual/reelComponent.ts", ['./rollupPluginModLoBabe
     }, function (module) {
       ReelStatus = module.ReelStatus;
     }, function (module) {
-      betterRandom = module.betterRandom;
-    }, function (module) {
       CoinTypes = module.CoinTypes;
     }, function (module) {
       JackpotTypes = module.JackpotTypes;
@@ -8640,6 +9186,8 @@ System.register("chunks:///_virtual/reelComponent.ts", ['./rollupPluginModLoBabe
       RoundTypes = module.RoundTypes;
     }, function (module) {
       reelsData = module.reelsData;
+    }, function (module) {
+      randomizer = module.randomizer;
     }],
     execute: function () {
       var _dec, _dec2, _class, _class2, _descriptor;
@@ -8765,7 +9313,7 @@ System.register("chunks:///_virtual/reelComponent.ts", ['./rollupPluginModLoBabe
               this.reorganizeSymbols(model.symbols);
               if (!model.showEndResult) {
                 var randomCoinData = data.isBonusReel ? undefined : this.drawRandomCoin(10, data.roundType);
-                this.context.service.setNewSymbolCallback(symbolContainer, betterRandom({
+                this.context.service.setNewSymbolCallback(symbolContainer, randomizer.betterRandom({
                   gods: data.isBonusReel,
                   specials: data.specials
                 }), randomCoinData);
@@ -9286,6 +9834,8 @@ System.register("chunks:///_virtual/reelService.ts", ['./rollupPluginModLoBabelH
           this.reelModel.showEndResult = false;
           this.reelModel.status = ReelStatus.Stopped;
           this.reelModel.isRespin = false;
+          this.reelModel.result = [];
+          this.reelModel.resultCoins = [];
         };
         _proto.setRoundTypeHandler = function setRoundTypeHandler(data) {
           this.roundType = data.roundType;
