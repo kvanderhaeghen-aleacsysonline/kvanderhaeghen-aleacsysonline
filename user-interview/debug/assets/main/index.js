@@ -192,6 +192,9 @@ System.register("chunks:///_virtual/backgroundAudioComponent.ts", ['./rollupPlug
             return item.type === args.roundType;
           })) != null ? _this$backgroundAmbie : this.backgroundAmbient[0];
           this.audioSource.clip = track.audioClip;
+          if (this.isMute) {
+            return;
+          }
           this.audioSource.play();
         };
         _proto.soundButtonPressed = function soundButtonPressed() {
@@ -8916,8 +8919,10 @@ System.register("chunks:///_virtual/randomizer.ts", ['./rollupPluginModLoBabelHe
           var _arr$_i = _arr[_i],
             symbol = _arr$_i[0],
             weight = _arr$_i[1];
+          var typedSymbol = Number.isNaN(Number(symbol)) ? symbol // for string T
+          : Number(symbol); // for number T
           for (var i = 0; i < weight; i++) {
-            result.push(symbol);
+            result.push(typedSymbol);
           }
         }
         return shuffle(result);
