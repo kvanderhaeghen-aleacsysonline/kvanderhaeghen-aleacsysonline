@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+    font-family: Helvetica;
+    overflow: hidden;
+}
+a {
+    color: #369;
+}
+.note {
+    width: 500px;
+    margin: 50px auto;
+    font-size: 1.1em;
+    color: #333;
+    text-align: justify;
+}
+
+p {
+    margin-top: 0;
+}
+.my-form {
+    margin-bottom: 0px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.button:hover {
+    background: #ddd;
+}
+#fileElem {
+    display: none;
+}
+
+
+.row {
+    display: table-row;
+    background-color: black;
+    border-style: hidden;
+}
+.row1 {
+    display: flex;
+    background-color: black;
+    border-style: hidden;
+    position: absolute;
+}
+.column {
+    display: table-cell;
+    border-style: hidden;
+    position:relative;
+}
+.body {
+    background-color: black;
+}
